@@ -1,0 +1,14 @@
+[project]
+name = "sis-canaan-inmobiliaria"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django-compressor>=4.5.1",
+    "easyocr>=1.7.2",
+    "gradio-client>=1.13.3",
+    "onnxruntime>=1.23.1",
+    "pdf2image>=1.17.0",
+    "requests>=2.32.5",
+]
