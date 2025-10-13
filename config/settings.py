@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-!-fs-ay&5!5r&!#ona1t-xl5p#hiv7_l-1bmp(%+y(2h4rdp7@
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost","https://canaan-inmobiliaria-admin.up.railway.app","http://localhost:8000","http://localhost:4321","http://localhost:4322","https://web-inmobiliaria-canaan.pages.dev"]
+ALLOWED_HOSTS = ["localhost","canaan-inmobiliaria-admin.up.railway.app","https://canaan-inmobiliaria-admin.up.railway.app","http://localhost:8000","http://localhost:4321","http://localhost:4322","https://web-inmobiliaria-canaan.pages.dev"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +54,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "localhost",
+    "canaan-inmobiliaria-admin.up.railway.app",
     "http://localhost:8000",
     "http://localhost:4321",
     "http://localhost:4322",
@@ -64,6 +65,7 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "localhost",
     "http://localhost:8000",
+    "canaan-inmobiliaria-admin.up.railway.app",
     "http://localhost:4321",
     "http://localhost:4322",
     "https://web-inmobiliaria-canaan.pages.dev",
