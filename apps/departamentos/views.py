@@ -7,6 +7,8 @@ from apps.urbanizaciones.models import Urbanizacion
 from apps.viviendas.models import Vivienda
 from apps.tramites.models import Tramite
 from .serializers import DepartamentoSerializer
+from django.db import models
+
 
 class DepartamentoListView(APIView):
     def get(self, request):
@@ -28,8 +30,10 @@ class DepartamentoListView(APIView):
             .prefetch_related(
                 Prefetch('urbanizaciones', queryset=Urbanizacion.objects.all().order_by('nombre')),
                 Prefetch('viviendas', queryset=Vivienda.objects.all().order_by('nombre')),
-                Prefetch('tramites', queryset=Tramite.objects.all().order_by('nombre'))
+                Prefetch('tramites', queryset=Tramite.objects.filter(departamento__isnull=False).order_by('nombre'))
             )
+
+
             .order_by('nombre')
         )
 
@@ -41,7 +45,6 @@ class DepartamentoListView(APIView):
         serializer = DepartamentoSerializer(departamentos, many=True)
         data = serializer.data
 
-        # Filtrar relaciones según tipo si se pasa en query param
         if tipo in ["urbanizaciones", "viviendas", "tramites"]:
             for d in data:
                 for rel in ["urbanizaciones", "viviendas", "tramites"]:
