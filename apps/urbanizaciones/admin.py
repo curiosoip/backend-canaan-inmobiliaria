@@ -87,7 +87,7 @@ class UrbanizacionAdminForm(forms.ModelForm):
         }
 
 
-        async with httpx.AsyncClient(timeout=None) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
             llama_resp = await client.post(
                 f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@cf/meta/llama-4-scout-17b-16e-instruct",
                 headers={"Authorization": f"Bearer {AUTH_TOKEN}"},
@@ -132,7 +132,7 @@ class UrbanizacionAdminForm(forms.ModelForm):
             "temperature": 0
         }
 
-        async with httpx.AsyncClient(timeout=None) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
             hermes_resp = await client.post(
                 f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@hf/nousresearch/hermes-2-pro-mistral-7b",
                 headers={"Authorization": f"Bearer {AUTH_TOKEN}"},
@@ -145,7 +145,7 @@ class UrbanizacionAdminForm(forms.ModelForm):
 
         data_resumen = hermes_resp.json()
 
-        async with httpx.AsyncClient(timeout=None) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
             vertices_resp = await client.post(
                 f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@cf/meta/llama-4-scout-17b-16e-instruct",
                 headers={"Authorization": f"Bearer {AUTH_TOKEN}"},
@@ -196,7 +196,7 @@ class UrbanizacionAdminForm(forms.ModelForm):
             "temperature": 0
         }
 
-        async with httpx.AsyncClient(timeout=None) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
             hermes_resp_vertices = await client.post(
                 f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/@hf/nousresearch/hermes-2-pro-mistral-7b",
                 headers={"Authorization": f"Bearer {AUTH_TOKEN}"},
