@@ -292,9 +292,6 @@ class UrbanizacionAdminForm(forms.ModelForm):
         return instance
 
 
-
-
-
 @admin.register(Urbanizacion)
 class UrbanizacionAdmin(admin.ModelAdmin):
     form = UrbanizacionAdminForm
