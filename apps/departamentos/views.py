@@ -36,7 +36,6 @@ class DepartamentoListView(APIView):
 
             .order_by('nombre')
         )
-
         if nombre:
             departamentos = departamentos.filter(nombre__icontains=nombre)
         if id_departamento:
