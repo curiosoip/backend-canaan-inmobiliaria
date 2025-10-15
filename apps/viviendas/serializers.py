@@ -1,6 +1,6 @@
 # apps/viviendas/api/serializers.py
 from rest_framework import serializers
-from .models import TipoVivienda, Vivienda, ViviendaImagen
+from .models import TipoVivienda, Vivienda, ViviendaImagen,CaracteristicaVivienda
 from apps.usuarios.serializers import UsuarioSerializer 
 
 class ViviendaImagenSerializer(serializers.ModelSerializer):
@@ -24,11 +24,16 @@ class TipoViviendaSerializer(serializers.ModelSerializer):
             'fecha_actualizacion',
         ]
 
+class CaracteristicaViviendaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CaracteristicaVivienda
+        fields = ['id_caracteristica', 'tipo', 'nombre', 'descripcion', 'fecha_registro']  # quitar 'cantidad'
 
 class ViviendaSerializer(serializers.ModelSerializer):
     tipo = TipoViviendaSerializer(read_only=True)
     comprador = UsuarioSerializer(read_only=True)
     galeria = ViviendaImagenSerializer(many=True, read_only=True)
+    caracteristicas = CaracteristicaViviendaSerializer(many=True, read_only=True)  
 
     class Meta:
         model = Vivienda
@@ -44,8 +49,10 @@ class ViviendaSerializer(serializers.ModelSerializer):
             'permite_financiamiento',
             'tipo',
             'comprador',
-            'superficie'
+            'superficie',
             'galeria',
+            'caracteristicas',   # <- aquí sí
             'fecha_registro',
             'fecha_actualizacion',
         ]
+

@@ -19,6 +19,29 @@ class TipoVivienda(models.Model):
         verbose_name_plural = "Tipos de Vivienda"
         ordering = ["nombre"]
 
+class CaracteristicaVivienda(models.Model):
+    TIPO_CARACTERISTICA = (
+        ('INTERNA', 'Interna'),
+        ('EXTERNA', 'Externa'),
+    )
+
+    id_caracteristica = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vivienda = models.ForeignKey('Vivienda', on_delete=models.CASCADE, related_name='caracteristicas')
+    tipo = models.CharField(max_length=10, choices=TIPO_CARACTERISTICA)
+    nombre = models.CharField(max_length=150)
+    descripcion = models.TextField(blank=True, null=True)
+    cantidad=models.IntegerField(default=0)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nombre} ({self.get_tipo_display()})"
+
+    class Meta:
+        db_table = "caracteristica_vivienda"
+        verbose_name = "Característica de Vivienda"
+        verbose_name_plural = "Características de Viviendas"
+        ordering = ["tipo", "nombre"]
+
 class Vivienda(models.Model):
     ESTADO_VIVIENDA = (
         ('DISPONIBLE', 'Disponible'),
@@ -54,7 +77,7 @@ class Vivienda(models.Model):
 class ViviendaImagen(models.Model):
     id_imagen = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE, related_name='galeria')
-    imagen_url = models.URLField()
+    imagen_url = models.URLField(blank=True,null=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
