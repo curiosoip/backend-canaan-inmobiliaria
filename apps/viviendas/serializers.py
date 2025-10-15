@@ -27,7 +27,7 @@ class TipoViviendaSerializer(serializers.ModelSerializer):
 class CaracteristicaViviendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaracteristicaVivienda
-        fields = ['id_caracteristica', 'tipo', 'nombre', 'descripcion', 'fecha_registro']  # quitar 'cantidad'
+        fields = ['id_caracteristica', 'tipo', 'nombre', 'descripcion','cantidad', 'fecha_registro']  # quitar 'cantidad'
 
 class ViviendaSerializer(serializers.ModelSerializer):
     tipo = TipoViviendaSerializer(read_only=True)
