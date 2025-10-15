@@ -38,6 +38,7 @@ class Vivienda(models.Model):
     precio = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     permite_financiamiento = models.BooleanField(default=False)
     comprador = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True, related_name='viviendas_compradas')
+    superficie = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text="Superficie construida en m²")
     fecha_registro = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 

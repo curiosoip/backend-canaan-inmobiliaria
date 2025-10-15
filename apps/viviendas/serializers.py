@@ -44,6 +44,7 @@ class ViviendaSerializer(serializers.ModelSerializer):
             'permite_financiamiento',
             'tipo',
             'comprador',
+            'superficie'
             'galeria',
             'fecha_registro',
             'fecha_actualizacion',

@@ -41,7 +41,7 @@ class TipoViviendaAdmin(admin.ModelAdmin):
 @admin.register(Vivienda)
 class ViviendaAdmin(admin.ModelAdmin):
     form = ViviendaAdminForm
-    list_display = ('nombre','miniatura_portada', 'tipo', 'departamento', 'estado', 'precio', 'permite_financiamiento','comprador', 'fecha_registro')
+    list_display = ('nombre','miniatura_portada', 'tipo', 'departamento', 'estado', 'precio', 'permite_financiamiento','comprador','superficie', 'fecha_registro')
     list_filter = ('estado', 'tipo', 'departamento', 'permite_financiamiento','comprador')
     search_fields = ('nombre',)
     readonly_fields = ('fecha_registro', 'fecha_actualizacion', 'portada_url', 'miniatura_portada')
@@ -52,7 +52,7 @@ class ViviendaAdmin(admin.ModelAdmin):
             'fields': (
                 'nombre', 'tipo', 'departamento', 'descripcion', 
                 'precio', 'permite_financiamiento',
-                'portada_url', 'portada_file', 'estado','comprador', 'latitude', 'longitude'
+                'portada_url', 'portada_file', 'estado','comprador','superficie', 'latitude', 'longitude'
             )
         }),
         ('Tiempos de Registro', {
