@@ -1,0 +1,22 @@
+/* Header del admin */
+#header {
+    background-color: #1E3A8A !important;  /* Azul oscuro */
+    color: white !important;
+}
+
+/* Fondo del contenido */
+body {
+    background-color: #f5f6fa !important;
+}
+
+/* Botones */
+.button, input[type=submit], .submit-row input {
+    background-color: #2563EB !important; /* Azul brillante */
+    color: #fff !important;
+    border: none !important;
+}
+
+/* Enlaces */
+a {
+    color: #1E3A8A !important;
+}

@@ -1,0 +1,4 @@
+config/settings.py:135==>REMOVED_CLIENT_ID
+config/settings.py:136==>REMOVED_CLIENT_SECRET
+.env:7==>REMOVED_CLIENT_ID
+.env:8==>REMOVED_CLIENT_SECRET
