@@ -9,6 +9,7 @@ django-allauth
 uvicorn
 psycopg2-binary
 dj-database-url 
+opencv-python-headless
 python-dotenv
 boto3
 pymupdf4llm
