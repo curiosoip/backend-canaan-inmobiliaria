@@ -47,6 +47,8 @@ class VerticeUrbanizacionInline(admin.TabularInline):
     verbose_name = "Vértice"
     verbose_name_plural = "Vértices"
 
+
+'''
 class UrbanizacionAdminForm(forms.ModelForm):
     portada_file = forms.FileField(required=False, label="Portada")
     planimetria_file = forms.FileField(required=False, label="Planimetría PDF")
@@ -256,3 +258,4 @@ class UrbanizacionAdmin(admin.ModelAdmin):
     def total_lotes(self, obj):
         return obj.lotes.count()
     total_lotes.short_description = "Total de Lotes"
+'''
