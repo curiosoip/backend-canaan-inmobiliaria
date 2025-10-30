@@ -8,13 +8,14 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+
 # Copiar dependencias
 COPY requirements.txt .
 
 # Instalar dependencias de Python
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Copiar el resto del código
+# Copiar el resto del código del proyecto
 COPY . .
 
 # Exponer el puerto para Railway
