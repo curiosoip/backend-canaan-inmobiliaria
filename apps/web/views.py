@@ -16,7 +16,7 @@ def panel(request):
 def login_view(request):
     if request.user.is_authenticated:
         if request.user.rol and request.user.rol.nombre == 'Administrador':
-            return redirect('usuarios')
+            return redirect('usuarios_empresas')
         elif request.user.rol and request.user.rol.nombre == 'Cliente':
             messages.error(request, "No tienes acceso a este administrador.")
             return redirect('login')
@@ -38,7 +38,7 @@ def login_view(request):
             login(request, user)
 
             if user.rol and user.rol.nombre == 'Administrador':
-                return redirect('usuarios')
+                return redirect('usuarios_empresas')
             elif user.rol and user.rol.nombre == 'Cliente':
                 messages.error(request, "No tienes acceso a este administrador.")
                 return redirect('login')
