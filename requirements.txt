@@ -17,3 +17,4 @@ pillow
 requests
 pdf2image
 rapidocr
+httpx
