@@ -1,7 +1,14 @@
-from django.urls import path
-from .views import index
+from django.urls import path,include
+from .views import index,login_view
+from django.contrib.auth.views import LogoutView
+
+
 
 urlpatterns = [
-    path('', index, name='index')
-    
+    path('', index, name='inicio'),
+    path('panel/perfiles/', include('apps.perfiles.urls')),
+    path('panel/usuarios/', include('apps.usuarios.urls')),
+    path('panel/reportes/', include('apps.reportes.urls')),
+    path('login', login_view, name='login'),
+    path('logout', LogoutView.as_view(next_page='login'), name='logout'),
 ]

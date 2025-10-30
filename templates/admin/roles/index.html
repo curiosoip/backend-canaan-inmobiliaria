@@ -1,0 +1,21 @@
+{% extends "admin/_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include 'componentes/banner.html' %}
+
+
+
+
+<ul class="flex flex-col w-full justify-center items-center py-1">
+    {% for rol in roles %}
+        {% include 'admin/roles/card_item_list.html' with rol=rol %}
+    {% empty %}
+        <li class="text-gray-500 font-bold py-3">No hay roles disponibles.</li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock content %}

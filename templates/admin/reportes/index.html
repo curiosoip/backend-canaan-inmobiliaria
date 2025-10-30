@@ -1,0 +1,20 @@
+{% extends "admin/_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="flex flex-col gap-2 justify-center w-full items-center mt-4">
+
+    <div class="flex justify-center flex-col gap-2 lg:flex-row w-full">
+        {% include 'componentes/graficas/card_chart_line_label.html'  %}
+        {% include 'componentes/graficas/card_chart_pie.html'  %}
+        {% include 'componentes/graficas/card_chart_donut.html'  %}
+    </div>
+    <div class="flex justify-center flex-col gap-2 lg:flex-row w-full">
+        {% include 'componentes/graficas/card_chart_column.html' %}
+        {% include 'componentes/graficas/card_chart_pie_alquiler.html'  %}
+        {% include 'componentes/graficas/card_chart_donut_stock.html' %}
+    </div>
+</div>
+
+{% endblock content %}

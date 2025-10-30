@@ -1,0 +1,86 @@
+{% load static %}
+<div class="flex w-full p-2 bg-white my-1 rounded-lg">
+    <div class="flex flex-col lg:flex-row w-full justify-between items-center">
+        <div class="flex w-full lg:w-auto justify-start p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="text-gray-700" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 7h11l1.16 3.32c-.38.1-.66.45-.66.86 0 .28.11.53.29.71l.72.72V18H5v-6.39l.72-.72c.18-.18.29-.43.29-.71 0-.41-.28-.76-.66-.86L6.5 7zM7 16.5C7 15.67 7.67 15 8.5 15S10 15.67 10 16.5 9.33 18 8.5 18 7 17.33 7 16.5zm6 0c0-.83.67-1.5 1.5-1.5S16 15.67 16 16.5 15.33 18 14.5 18 13 17.33 13 16.5z" />
+            </svg>
+        </div>
+
+        <div class="flex flex-col w-full justify-start items-start px-3">
+            <p class="text-sm  font-bold text-gray-700 truncate dark:text-white uppercase">
+                {{ vehiculo.marca }} {{ vehiculo.modelo }}
+            </p>
+            <div class="flex flex-col gap-1 text-xs text-gray-500 truncate dark:text-gray-400">
+                <div class="flex gap-2 text-xs uppercase text-gray-500">
+                    <strong>Placa:</strong> {{ vehiculo.placa }}
+                </div>
+                <div class="flex gap-2 text-xs text-gray-500">
+                    <strong>Año:</strong> {{ vehiculo.anio }}
+                </div>
+                <div class="flex gap-2 text-xs text-gray-500">
+                    <strong>Departamento:</strong>
+                    {{ vehiculo.get_departamento_display }}
+                </div>
+                
+
+            </div>
+        </div>
+
+        <div class="flex gap-3 w-full justify-between items-center">
+            <div class="flex flex-col lg:flex-row lg:gap-3 w-full justify-between items-start lg:items-center py-3">
+                <div class="flex flex-col  justify-center items-start py-2 px-4 gap-2 text-xs text-gray-600 w-full">
+                        {% if vehiculo.chofer_asignado %}
+                            <strong>Chofer:</strong>
+                            {{ vehiculo.chofer_asignado.get_full_name|default:vehiculo.chofer_asignado.username }}
+                        {% else %}
+                            <strong>Chofer:</strong> No asignado
+                        {% endif %}
+                    </div>
+                <div class="flex  gap-3 w-full justify-between items-center py-3">
+                    
+
+                    <!-- Estado -->
+                    <div class="flex w-full justify-center items-center py-2 px-3 text-xs font-bold">
+                        {% if vehiculo.estado == "activo" %}
+                            <div class="bg-green-600 rounded-full text-center text-white px-3 py-1 min-w-[130px]">Activo</div>
+                        {% elif vehiculo.estado == "mantenimiento" %}
+                            <div class="bg-yellow-600 rounded-full text-center text-white px-3 py-1 min-w-[130px]">En Mantenimiento</div>
+                        {% elif vehiculo.estado == "baja" %}
+                            <div class="bg-red-600 rounded-full text-center text-white px-3 py-1 min-w-[130px]">Baja</div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="flex flex-col justify-center items-center py-2 px-3 gap-2 text-xs text-gray-600 w-1/4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z"/></svg>
+                        {{ vehiculo.numero_motor|default:"-" }}
+                    </div>
+
+                    <div class="flex flex-col justify-center items-center py-2 px-3 gap-2 text-xs text-gray-600 w-1/4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke="#344054" d="M25 12.5v25m-8.333-25h16.666zm0 25h16.666z"/><path stroke="#306cfe" d="M37.5 18.75a4.167 4.167 0 0 1-4.167-4.167v-4.166A4.167 4.167 0 0 1 37.5 6.25v0a4.167 4.167 0 0 1 4.167 4.167v4.166A4.167 4.167 0 0 1 37.5 18.75m-20.833-4.167v-4.166a4.167 4.167 0 1 0-8.334 0v4.166a4.167 4.167 0 1 0 8.334 0m25 25v-4.166a4.167 4.167 0 1 0-8.334 0v4.166a4.167 4.167 0 1 0 8.334 0m-25 0v-4.166a4.167 4.167 0 1 0-8.334 0v4.166a4.167 4.167 0 1 0 8.334 0"/></g></svg>
+                        {{ vehiculo.numero_chasis|default:"-" }}
+                    </div>
+                </div>
+
+
+
+                <div class="flex flex-col gap-1 px-3 py-2 text-gray-500 w-full" style="font-size: 10px;">
+                    <strong class="m-0 p-0">Registrado:</strong>
+                    {{ vehiculo.fecha_registro|date:"d/m/Y H:i" }}
+                </div>
+                 <div class="flex py-1 w-full gap-2 justify-end items-end text-base font-semibold text-gray-900 dark:text-white">
+                {% if user.rol == 'Administrador general' %}
+                    {% include 'admin/vehiculos/btn_asignar_chofer.html' with vehiculo=vehiculo %}
+                    {% include 'admin/vehiculos/btn_cambiar_estado.html' with vehiculo=vehiculo %}
+                    {% include 'admin/vehiculos/btn_formulario_editar.html' with vehiculo=vehiculo %}
+                    {% include 'admin/vehiculos/btn_eliminar_registro.html' with vehiculo=vehiculo %}
+                {% endif %}
+            </div>
+            </div>
+
+           
+        </div>
+    </div>
+</div>

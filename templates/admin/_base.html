@@ -1,0 +1,374 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="{% static 'src/img/logo.jpg' %}" />
+    <title>Canaán Inmobiliaria</title>
+    {% block styles %}{% endblock %}
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+</head>
+
+<body class="bg-gray-50">
+    <nav class="fixed top-0 z-50 w-full bg-gray-900">
+        <div class="px-5 py-3 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                        aria-controls="logo-sidebar" type="button"
+                        class="inline-flex items-center p-2 text-sm mr-1 text-slate-200 rounded-xl sm:hidden hover:bg-amber-600">
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                            </path>
+                        </svg>
+                    </button>
+
+
+                    <div class="flex items-center">
+                        <img src="{% static 'src/imgs/logo.svg' %}" class="h-6 mr-3 sm:h-9" alt="Logo" />
+                        <div class="hidden lg:flex text-white font-bold text-xl  font-sans">Inmobiliaria Canaán</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="text-white mr-3" viewBox="0 0 24 24"><g fill="none"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7v3.528a1 1 0 0 1-.105.447l-1.717 3.433A1.1 1.1 0 0 0 4.162 18h15.676a1.1 1.1 0 0 0 .984-1.592l-1.716-3.433a1 1 0 0 1-.106-.447V9a7 7 0 0 0-7-7m0 19a3 3 0 0 1-2.83-2h5.66A3 3 0 0 1 12 21"/></g></svg>
+                    {% if user.rol.nombre == 'Administrador' %}
+                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded uppercase">{{user.rol.nombre}}</span>
+                    {% else %}
+                        <span class="bg-slate-800 text-slate-100 text-xs font-medium me-2 px-2.5 py-0.5 rounded uppercase">{{user.rol.nombre}}</span>
+                    {% endif %}
+                    <div class="flex items-center ms-3">
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button
+                                class="text-white cursor-pointer flex justify-center items-center hover:opacity-80 font-sans font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="white"
+                                        d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z">
+                                    </path>
+                                </svg>
+                                <div class="hidden lg:flex">Cerrar sesión</div>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <aside id="logo-sidebar"
+        class="fixed top-0 left-0 z-40 w-74 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-100 sm:translate-x-0 "
+        aria-label="Sidebar">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+            <ul class="space-y-2 font-medium">
+
+
+                {% if user.rol.nombre == 'Administrador' %}
+                <div class="bg-gray-50 text-gray-600 font-bold flex flex-col justify-center items-center p-1 rounded-lg">
+                    ADMINISTRACIÓN
+                    <p class="text-xs text-slate-500">{{user.first_name}} {{user.last_name}}</p>
+                            
+                </div>
+                <li>
+                    <a href="{% url 'reportes' %}" class="flex items-center p-2 
+                                               {% if request.path == '/panel/reportes/' %} bg-gray-100 text-gray-600 
+                                               {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                               rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><rect width="5" height="18" x="16" y="3" rx="2"/><rect width="5" height="12" x="9.5" y="9" rx="2"/><rect width="5" height="5" x="3" y="16" rx="2"/></g></svg>                        
+                            <span class="flex-1 ms-3 whitespace-nowrap">Métricas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'reportes' %}" class="flex items-center p-2 
+                                               {% if request.path == '/panel/reportes/' %} bg-gray-100 text-gray-600 
+                                               {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                               rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M30 6V4h-3V2h-2v2h-1c-1.103 0-2 .898-2 2v2c0 1.103.897 2 2 2h4v2h-6v2h3v2h2v-2h1c1.103 0 2-.897 2-2v-2c0-1.102-.897-2-2-2h-4V6zm-6 14v2h2.586L23 25.586l-2.292-2.293a1 1 0 0 0-.706-.293H20a1 1 0 0 0-.706.293L14 28.586L15.414 30l4.587-4.586l2.292 2.293a1 1 0 0 0 1.414 0L28 23.414V26h2v-6zM4 30H2v-5c0-3.86 3.14-7 7-7h6c1.989 0 3.89.85 5.217 2.333l-1.49 1.334A5 5 0 0 0 15 20H9c-2.757 0-5 2.243-5 5zm8-14a7 7 0 1 0 0-14a7 7 0 0 0 0 14m0-12a5 5 0 1 1 0 10a5 5 0 0 1 0-10"/></svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Ventas</span>
+                    </a>
+                </li>
+               <li>
+                    <button type="button" 
+                            class="flex items-center w-full p-2 
+                                 text-gray-500 hover:bg-gray-100 text-sm
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group" 
+                            aria-controls="dropdown-servicios" 
+                            data-collapse-toggle="dropdown-servicios">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M14 17h2v2h-2zm0-4h4v2h-4z"/><path fill="currentColor" d="M21 23H11a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1m-9-2h8V11h-8z"/><path fill="currentColor" d="M16 1a1 1 0 0 0-.504.136l-12 7A1 1 0 0 0 3 9v14a1 1 0 0 0 .496.864l12 7a1 1 0 0 0 1.008 0l11-6.417l-1.008-1.727L16 28.842L5 22.426V9.575l11-6.417l11 6.416V17h2V9a1 1 0 0 0-.496-.864l-12-7A1 1 0 0 0 16 1"/></svg>
+                        <span class="flex-1 min-w-0 ms-3 text-left rtl:text-right truncate whitespace-nowrap">
+                            Servicios
+                        </span>
+
+                        <svg class="flex-shrink-0 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul id="dropdown-servicios" class="hidden py-2 space-y-2">
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex px-5 w-full items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 2h16c1.1 0 2 .9 2 2v6H10v10h4.55q.27.45.54.84c.29.43.57.82.83 1.16H4c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2m4 2H4v10h4zM4 16v4h4v-4zm6-8h10V4H10zm8.5 14s-.58-.65-1.27-1.59c-.09-.13-.19-.27-.29-.41C16 18.66 15 16.89 15 15.5c0-1.9 1.6-3.5 3.5-3.5c.53 0 1.04.13 1.5.35c1.17.57 2 1.78 2 3.15c0 1.54-1.23 3.54-2.23 4.91c-.69.94-1.27 1.59-1.27 1.59m-1.2-6.4c0 .6.5 1.2 1.2 1.2s1.3-.6 1.2-1.2c0-.6-.6-1.2-1.2-1.2s-1.2.5-1.2 1.2"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Lotes y Viviendas</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M1.75 10v4c0 2.829 0 4.243.879 5.122c.217.217.467.38.763.504l-.019-.134c-.123-.918-.123-2.063-.123-3.393V7.902c0-1.33 0-2.476.123-3.393l.02-.134a2.3 2.3 0 0 0-.764.504C1.75 5.758 1.75 7.172 1.75 10m20 0v4c0 2.829 0 4.243-.879 5.122c-.217.217-.467.38-.763.504l.019-.134c.123-.918.123-2.063.123-3.393V7.902c0-1.33 0-2.476-.123-3.393l-.02-.134c.297.123.547.287.764.504c.879.879.879 2.293.879 5.121"/><path fill="currentColor" fill-rule="evenodd" d="M5.629 2.879C4.75 3.757 4.75 5.172 4.75 8v8c0 2.828 0 4.243.879 5.121C6.507 22 7.922 22 10.75 22h2c2.828 0 4.243 0 5.121-.879c.879-.878.879-2.293.879-5.121V8c0-2.828 0-4.243-.879-5.121C16.993 2 15.578 2 12.75 2h-2c-2.828 0-4.243 0-5.121.879M8 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3A.75.75 0 0 1 8 17m.75-4.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8 9a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6A.75.75 0 0 1 8 9" clip-rule="evenodd"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Trámites</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M16 30C8.28 30 2 23.72 2 16S8.28 2 16 2s14 6.28 14 14c0 2.62-.73 5.18-2.11 7.39c.05.74 1.05 3.21 2.01 5.17c.19.38.11.84-.19 1.14s-.76.38-1.14.2c-1.99-.96-4.5-1.94-5.24-1.97A14 14 0 0 1 16 30m0-26C9.38 4 4 9.38 4 16s5.38 12 12 12a12 12 0 0 0 6.39-1.84c.32-.21 1.01-.63 4.58.84c-1.5-3.54-1.07-4.22-.87-4.54c1.23-1.93 1.89-4.16 1.89-6.46c0-6.62-5.38-12-12-12zm7.83 16.87l-1.67-1.11a4.997 4.997 0 0 1-8.33 0l-1.67 1.11A7 7 0 0 0 17.99 24c2.35 0 4.54-1.17 5.83-3.13zM22 13c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2c.01-1.09-.87-1.99-1.96-2zm-8 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2c.01-1.09-.87-1.99-1.96-2z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Consultorías</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M29 12h-9V3h9zm-7-2h5V5h-5z"/><path fill="currentColor" d="M20 15v2h7v10H17V3H5c-1.103 0-2 .898-2 2v22c0 1.103.897 2 2 2h22c1.103 0 2-.897 2-2V15zM6.414 17H15v8.586zM15 15H6.414L15 6.414zM13.586 5L5 13.586V5zM5 18.414L13.586 27H5z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Importaciones</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2 12c0 .385.312.698.698.698H4.59a7.444 7.444 0 0 0 6.712 6.712v1.892a.698.698 0 0 0 1.396 0V19.41a7.444 7.444 0 0 0 6.712-6.712h1.892a.698.698 0 0 0 0-1.396H19.41a7.444 7.444 0 0 0-6.712-6.712V2.698a.698.698 0 0 0-1.396 0V4.59a7.444 7.444 0 0 0-6.712 6.712H2.698A.7.7 0 0 0 2 12m6.512 0a3.488 3.488 0 1 1 6.976 0a3.488 3.488 0 0 1-6.976 0" clip-rule="evenodd"/><path fill="currentColor" d="M9.907 12a2.093 2.093 0 1 1 4.186 0a2.093 2.093 0 0 1-4.186 0"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Red Cors</span>
+                            </a>
+                        </li>
+                      
+                       
+                    </ul>
+                </li>
+                
+                  
+                <li>
+                    <button type="button" 
+                            class="flex items-center w-full p-2 
+                                 text-gray-500 hover:bg-gray-100 text-sm
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group" 
+                            aria-controls="dropdown-seguimiento" 
+                            data-collapse-toggle="dropdown-seguimiento">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 2.001a2.25 2.25 0 0 1 2.245 2.096L20 4.25v10.128q-.181.12-.341.28l-3.409 3.408l-.908-.91a2.24 2.24 0 0 0-1.5-.657h2.408a.75.75 0 1 0 0-1.5h-5.004a.75.75 0 0 0 0 1.5h2.413a2.25 2.25 0 0 0-1.5 3.839l1.659 1.66H6.25a2.25 2.25 0 0 1-2.245-2.096L4 19.75V4.251a2.25 2.25 0 0 1 2.096-2.245l.154-.005zM9 7.751a1 1 0 1 0-2 0a1 1 0 0 0 2 0M11.246 7a.75.75 0 0 0 0 1.5h5.004a.75.75 0 1 0 0-1.5zm-.75 4.75c0 .414.336.75.75.75h5.004a.75.75 0 1 0 0-1.5h-5.004a.75.75 0 0 0-.75.75M9 11.75a1 1 0 1 0-2 0a1 1 0 0 0 2 0m0 3.998a1 1 0 1 0-2 0a1 1 0 0 0 2 0m7.25 4.441l4.47-4.47a.75.75 0 1 1 1.06 1.061l-5 5l-.051.047a.75.75 0 0 1-1.01-.047l-2.5-2.501a.75.75 0 0 1 1.062-1.06z"/></svg>
+                        <span class="flex-1 min-w-0 ms-3 text-left rtl:text-right truncate whitespace-nowrap">
+                            Control de personal
+                        </span>
+
+                        <svg class="flex-shrink-0 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul id="dropdown-seguimiento" class="hidden py-2 space-y-2">
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex px-5 w-full items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M7 7h3v3h12V7h3v8h2V7c0-1.1-.9-2-2-2h-3V4c0-1.1-.9-2-2-2h-8c-1.1 0-2 .9-2 2v1H7c-1.1 0-2 .9-2 2v21c0 1.1.9 2 2 2h4v-2H7zm5-3h8v4h-8zm12.414 14L23 19.414L25.586 22H18c-2.206 0-4 1.794-4 4s1.794 4 4 4h2v-2h-2c-1.102 0-2-.897-2-2s.898-2 2-2h7.586L23 26.586L24.414 28l5-5z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Seguimiento de clientes</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36"><path fill="currentColor" d="M29.29 4.95h-7.2a4.31 4.31 0 0 0-8.17 0H7a1.75 1.75 0 0 0-2 1.69v25.62a1.7 1.7 0 0 0 1.71 1.69h22.58A1.7 1.7 0 0 0 31 32.26V6.64a1.7 1.7 0 0 0-1.71-1.69m-18 3a1 1 0 0 1 1-1h3.44v-.63a2.31 2.31 0 0 1 4.63 0V7h3.44a1 1 0 0 1 1 1v1.8H11.25Zm14.52 9.23l-9.12 9.12l-5.24-5.24a1.4 1.4 0 0 1 2-2l3.26 3.26l7.14-7.14a1.4 1.4 0 1 1 2 2Z" class="clr-i-solid clr-i-solid-path-1"/><path fill="none" d="M0 0h36v36H0z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Tareas</span>
+                            </a>
+                        </li>
+                        
+                      
+                       
+                    </ul>
+                </li>
+
+                
+                
+                 
+                <li>
+                    <button type="button" 
+                            class="flex items-center w-full p-2 
+                                 text-gray-500 hover:bg-gray-100 text-sm
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group" 
+                            aria-controls="dropdown-finanzas" 
+                            data-collapse-toggle="dropdown-finanzas">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 5.75C2 4.784 2.784 4 3.75 4h13.5c.966 0 1.75.784 1.75 1.75V11h-3a2 2 0 0 0-2 2v3H3.75A1.75 1.75 0 0 1 2 14.25zm3 .5a.75.75 0 0 1-.75.75h-1v1.5h1A2.25 2.25 0 0 0 6.5 6.25v-1H5zm5.5 6.25a2.25 2.25 0 1 0 0-4.5a2.25 2.25 0 0 0 0 4.5m-6.25.5a.75.75 0 0 1 .75.75v1h1.5v-1a2.25 2.25 0 0 0-2.25-2.25h-1V13zm12.5-6a.75.75 0 0 1-.75-.75v-1h-1.5v1a2.25 2.25 0 0 0 2.25 2.25h1V7zM4.401 17.5H14V19H7a3 3 0 0 1-2.599-1.5M22 9v2h-1.5V6.401A3 3 0 0 1 22 9m-5.5 3a1.5 1.5 0 0 0-1.5 1.5v8a1.5 1.5 0 0 0 1.5 1.5h5a1.5 1.5 0 0 0 1.5-1.5v-8a1.5 1.5 0 0 0-1.5-1.5zm.5 4.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1m3 0h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1m-3 2h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1m3 0h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1m-3 2h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1m3 0h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1M16.5 14a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5z"/></svg>
+                        <span class="flex-1 min-w-0 ms-3 text-left rtl:text-right truncate whitespace-nowrap">
+                            Finanzas
+                        </span>
+
+                        <svg class="flex-shrink-0 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul id="dropdown-finanzas" class="hidden py-2 space-y-2">
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex px-5 w-full items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.75 15.5a.25.25 0 0 0-.25.25v8a.25.25 0 0 0 .25.25H18a3 3 0 0 0 3-3v-5.25a.25.25 0 0 0-.25-.25ZM15 18h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-3.5-4.25a.25.25 0 0 0-.25-.25h-8a.25.25 0 0 0-.25.25V21a3 3 0 0 0 3 3h5.25a.25.25 0 0 0 .25-.25Zm-5.85 2.6a.49.49 0 0 1 .7-.7l1 1a.27.27 0 0 0 .36 0l1-1a.49.49 0 0 1 .7.7l-1 1a.27.27 0 0 0 0 .36l1 1a.48.48 0 0 1 0 .7a.48.48 0 0 1-.7 0l-1-1a.27.27 0 0 0-.36 0l-1 1a.48.48 0 0 1-.7 0a.48.48 0 0 1 0-.7l1-1a.27.27 0 0 0 0-.36ZM16 5.75a.76.76 0 0 0 .75-.75V3.5a.75.75 0 0 0-1.5 0V5a.76.76 0 0 0 .75.75"/><path fill="currentColor" d="M18 0H6a3 3 0 0 0-3 3v11.25a.25.25 0 0 0 .25.25h8a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25h-6A.25.25 0 0 1 5 6.25V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3.25a.25.25 0 0 1-.25.25h-6a.25.25 0 0 0-.25.25v7.5a.25.25 0 0 0 .25.25h8a.25.25 0 0 0 .25-.25V3a3 3 0 0 0-3-3M9 11.5h-.75a.25.25 0 0 0-.25.25v.75a.5.5 0 0 1-1 0v-.75a.25.25 0 0 0-.25-.25H6a.5.5 0 0 1 0-1h.75a.25.25 0 0 0 .25-.25V9.5a.5.5 0 0 1 1 0v.75a.25.25 0 0 0 .25.25H9a.5.5 0 0 1 0 1m9 0h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Contabilidad</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 13q-1.25 0-2.125-.875T11 10t.875-2.125T14 7t2.125.875T17 10t-.875 2.125T14 13m-7 3q-.825 0-1.412-.587T5 14V6q0-.825.588-1.412T7 4h14q.825 0 1.413.588T23 6v8q0 .825-.587 1.413T21 16zm2-2h10q0-.825.588-1.412T21 12V8q-.825 0-1.412-.587T19 6H9q0 .825-.587 1.413T7 8v4q.825 0 1.413.588T9 14m10 6H3q-.825 0-1.412-.587T1 18V8q0-.425.288-.712T2 7t.713.288T3 8v10h16q.425 0 .713.288T20 19t-.288.713T19 20M7 14V6z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Pagos</span>
+                            </a>
+                        </li>
+                      
+                       
+                    </ul>
+                </li>
+
+                
+                <li>
+                    <button type="button" 
+                            class="flex items-center w-full p-2 
+                                 text-gray-500 hover:bg-gray-100 text-sm
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group" 
+                            aria-controls="dropdown-usuarios" 
+                            data-collapse-toggle="dropdown-usuarios">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8m-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4zm7.25-2.095c.478-.86.75-1.85.75-2.905a6 6 0 0 0-.75-2.906a4 4 0 1 1 0 5.811M15.466 20c.34-.588.535-1.271.535-2v-1a5.98 5.98 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2z" clip-rule="evenodd"/></svg>
+
+                        <span class="flex-1 min-w-0 ms-3 text-left rtl:text-right truncate whitespace-nowrap">
+                            Usuarios
+                        </span>
+
+                        <svg class="flex-shrink-0 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul id="dropdown-usuarios" class="hidden py-2 space-y-2">
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas'%}" class="flex px-5 w-full items-center py-2 
+                                {% if request.path == '/panel/usuarios/empresas/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M21.053 20.8c-1.132-.453-1.584-1.698-1.584-1.698s-.51.282-.51-.51s.51.51 1.02-2.548c0 0 1.413-.397 1.13-3.68h-.34s.85-3.51 0-4.7c-.85-1.188-1.188-1.98-3.057-2.547s-1.188-.454-2.547-.396s-2.492.793-2.492 1.19c0 0-.85.056-1.188.396c-.34.34-.906 1.924-.906 2.32s.283 3.06.566 3.625l-.337.114c-.284 3.283 1.13 3.68 1.13 3.68c.51 3.058 1.02 1.756 1.02 2.548s-.51.51-.51.51s-.452 1.245-1.584 1.698s-7.416 2.886-7.927 3.396c-.512.51-.454 2.888-.454 2.888H29.43s.06-2.377-.452-2.888c-.51-.51-6.795-2.944-7.927-3.396zm-12.47-.172c-.1-.18-.148-.31-.148-.31s-.432.24-.432-.432s.432.432.864-2.16c0 0 1.2-.335.96-3.118h-.29s.144-.59.238-1.334a10 10 0 0 1 .037-.996l.038-.426c-.02-.492-.107-.94-.312-1.226c-.72-1.007-1.008-1.68-2.59-2.16c-1.584-.48-1.01-.384-2.16-.335c-1.152.05-2.112.672-2.112 1.01c0 0-.72.047-1.008.335c-.27.27-.705 1.462-.757 1.885v.28c.048.654.26 2.45.47 2.873l-.286.096c-.24 2.782.96 3.118.96 3.118c.43 2.59.863 1.488.863 2.16s-.432.43-.432.43s-.383 1.058-1.343 1.44l-.232.092v5.234h.575c-.03-1.278.077-2.927.746-3.594c.357-.355 1.524-.94 6.353-2.862zm22.33-9.056c-.04-.378-.127-.715-.292-.946c-.718-1.008-1.007-1.68-2.59-2.16s-1.007-.384-2.16-.335c-1.15.05-2.11.672-2.11 1.01c0 0-.72.047-1.008.335c-.27.272-.71 1.472-.758 1.89h.033l.08.914c.02.23.022.435.027.644c.09.666.21 1.35.33 1.59l-.286.095c-.24 2.782.96 3.118.96 3.118c.432 2.59.863 1.488.863 2.16s-.43.43-.43.43s-.054.143-.164.34c4.77 1.9 5.927 2.48 6.28 2.833c.67.668.774 2.316.745 3.595h.48V21.78l-.05-.022c-.96-.383-1.344-1.44-1.344-1.44s-.433.24-.433-.43s.433.43.864-2.16c0 0 .804-.23.963-1.84V14.66q0-.026-.003-.05h-.29s.216-.89.293-1.862z"/></svg>                                
+                                <span class="flex-1 ms-3 whitespace-nowrap">Equipo canaán</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_clientes' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/usuarios/clientes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36"><path fill="currentColor" d="M12 16.14h-.87a8.67 8.67 0 0 0-6.43 2.52l-.24.28v8.28h4.08v-4.7l.55-.62l.25-.29a11 11 0 0 1 4.71-2.86A6.6 6.6 0 0 1 12 16.14" class="clr-i-solid--badged clr-i-solid-path-1--badged"/><path fill="currentColor" d="M31.34 18.63a8.67 8.67 0 0 0-6.43-2.52a11 11 0 0 0-1.09.06a6.6 6.6 0 0 1-2 2.45a10.9 10.9 0 0 1 5 3l.25.28l.54.62v4.71h3.94v-8.32Z" class="clr-i-solid--badged clr-i-solid-path-2--badged"/><path fill="currentColor" d="M11.1 14.19h.31a6.45 6.45 0 0 1 3.11-6.29a4.09 4.09 0 1 0-3.42 6.33Z" class="clr-i-solid--badged clr-i-solid-path-3--badged"/><circle cx="17.87" cy="13.45" r="4.47" fill="currentColor" class="clr-i-solid--badged clr-i-solid-path-4--badged"/><path fill="currentColor" d="M18.11 20.3A9.7 9.7 0 0 0 11 23l-.25.28v6.33a1.57 1.57 0 0 0 1.6 1.54h11.49a1.57 1.57 0 0 0 1.6-1.54V23.3l-.24-.3a9.58 9.58 0 0 0-7.09-2.7" class="clr-i-solid--badged clr-i-solid-path-5--badged"/><path fill="currentColor" d="M24.43 13.44a7 7 0 0 1 0 .69a4 4 0 0 0 .58.05h.19a4.05 4.05 0 0 0 2.52-1a7.5 7.5 0 0 1-5.14-6.32A4.1 4.1 0 0 0 21.47 8a6.53 6.53 0 0 1 2.96 5.44" class="clr-i-solid--badged clr-i-solid-path-6--badged"/><circle cx="30" cy="6" r="5" fill="currentColor" class="clr-i-solid--badged clr-i-solid-path-7--badged clr-i-badge"/><path fill="none" d="M0 0h36v36H0z"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Clientes</span>
+                            </a>
+                        </li>
+                      
+                       
+                    </ul>
+                </li>
+                  <li>
+                    <button type="button" 
+                            class="flex items-center w-full p-2 
+                                 text-gray-500 hover:bg-gray-100 text-sm
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group" 
+                            aria-controls="dropdown-config" 
+                            data-collapse-toggle="dropdown-config">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9.25 22l-.4-3.2q-.325-.125-.612-.3t-.563-.375L4.7 19.375l-2.75-4.75l2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75l2.975 1.25q.275-.2.575-.375t.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3t.562.375l2.975-1.25l2.75 4.75l-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95l-2.75 4.75l-2.95-1.25q-.275.2-.575.375t-.6.3l-.4 3.2zm2.8-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5"/></svg>
+
+                        <span class="flex-1 min-w-0 ms-3 text-left rtl:text-right truncate whitespace-nowrap">
+                            Configuraciones
+                        </span>
+
+                        <svg class="flex-shrink-0 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul id="dropdown-config" class="hidden py-2 space-y-2">
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'roles' %}" class="flex px-5 w-full items-center py-2 
+                                {% if request.path == '/panel/usuarios/roles/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M19.307 3.21a2.91 2.91 0 1 0-.223 1.94a11.64 11.64 0 0 1 8.232 7.049l1.775-.698a13.58 13.58 0 0 0-9.784-8.291m-2.822 1.638a.97.97 0 1 1 0-1.939a.97.97 0 0 1 0 1.94m-4.267.805l-.717-1.774a13.58 13.58 0 0 0-8.291 9.784a2.91 2.91 0 1 0 1.94.223a11.64 11.64 0 0 1 7.068-8.233m-8.34 11.802a.97.97 0 1 1 0-1.94a.97.97 0 0 1 0 1.94m12.607 8.727a2.91 2.91 0 0 0-2.599 1.62a11.64 11.64 0 0 1-8.233-7.05l-1.774.717a13.58 13.58 0 0 0 9.813 8.291a2.91 2.91 0 1 0 2.793-3.578m0 3.879a.97.97 0 1 1 0-1.94a.97.97 0 0 1 0 1.94M32 16.485a2.91 2.91 0 1 0-4.199 2.599a11.64 11.64 0 0 1-7.05 8.232l.718 1.775a13.58 13.58 0 0 0 8.291-9.813A2.91 2.91 0 0 0 32 16.485m-2.91.97a.97.97 0 1 1 0-1.94a.97.97 0 0 1 0 1.94"/><path fill="currentColor" d="M19.19 16.35a3.879 3.879 0 1 0-5.42 0a4.85 4.85 0 0 0-2.134 4.014v1.939h9.697v-1.94a4.85 4.85 0 0 0-2.143-4.014m-4.645-2.774a1.94 1.94 0 1 1 3.88 0a1.94 1.94 0 0 1-3.88 0m-.97 6.788a2.91 2.91 0 1 1 5.819 0z" class="ouiIcon__fillSecondary"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Roles</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M216 64H56a8 8 0 0 1 0-16h136a8 8 0 0 0 0-16H56a24 24 0 0 0-24 24v128a24 24 0 0 0 24 24h160a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16m-36 80a12 12 0 1 1 12-12a12 12 0 0 1-12 12"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Billetera</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.625 8.5h-4.5a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v3.5h3.5a1 1 0 0 1 0 2"/><path fill="currentColor" d="M21 13a1 1 0 0 1-1-1A7.995 7.995 0 0 0 5.08 8.001a1 1 0 0 1-1.731-1.002A9.995 9.995 0 0 1 22 12a1 1 0 0 1-1 1m-1.125 9a1 1 0 0 1-1-1v-3.5h-3.5a1 1 0 0 1 0-2h4.5a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1"/><path fill="currentColor" d="M12 22A10.01 10.01 0 0 1 2 12a1 1 0 0 1 2 0a7.995 7.995 0 0 0 14.92 3.999a1 1 0 0 1 1.731 1.002A10.03 10.03 0 0 1 12 22"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Procesos</span>
+                            </a>
+                        </li>
+                        <li class="flex w-full items-center ">
+                            <a href="{% url 'usuarios_empresas' %}" class="flex w-full  px-5 items-center py-2 
+                                {% if request.path == '/panel/mantenimientos/solicitudes/' %} bg-gray-100 text-gray-600 
+                                {% else %} text-gray-500 hover:bg-gray-100 {% endif %} 
+                                rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M3.172 5.172C2 6.343 2 8.229 2 12s0 5.657 1.172 6.828S6.229 20 10 20h4c3.771 0 5.657 0 6.828-1.172S22 15.771 22 12s0-5.657-1.172-6.828S17.771 4 14 4h-4C6.229 4 4.343 4 3.172 5.172M12.75 10a.75.75 0 0 0-1.5 0v.701l-.607-.35a.75.75 0 0 0-.75 1.298l.607.35l-.607.351a.75.75 0 1 0 .75 1.3l.607-.351V14a.75.75 0 0 0 1.5 0v-.7l.607.35a.75.75 0 0 0 .75-1.3L13.5 12l.607-.35a.75.75 0 0 0-.75-1.3l-.607.35zm-6.017-.75a.75.75 0 0 1 .75.75v.7l.606-.35a.75.75 0 0 1 .75 1.3l-.607.35l.607.35a.75.75 0 1 1-.75 1.3l-.606-.35v.7a.75.75 0 0 1-1.5 0v-.701l-.608.35a.75.75 0 0 1-.75-1.298L5.232 12l-.607-.35a.75.75 0 1 1 .75-1.3l.608.351V10a.75.75 0 0 1 .75-.75m11.285.75a.75.75 0 0 0-1.5 0v.701l-.607-.35a.75.75 0 0 0-.75 1.298l.607.35l-.608.351a.75.75 0 0 0 .75 1.3l.608-.351V14a.75.75 0 0 0 1.5 0v-.7l.607.35a.75.75 0 0 0 .75-1.3l-.607-.35l.607-.35a.75.75 0 0 0-.75-1.3l-.607.35z" clip-rule="evenodd"/></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Cambiar contraseña</span>
+                            </a>
+                        </li>
+                      
+                       
+                    </ul>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </aside>
+    <div class="p-4 sm:ml-74">
+        <div class="p-4 border-2 border-gray-100 border-dashed rounded-lg  mt-14">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+
+</html>

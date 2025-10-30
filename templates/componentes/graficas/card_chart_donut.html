@@ -1,0 +1,70 @@
+{% load static %}
+
+<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between mb-3">
+        <div class="flex justify-center items-center">
+            <div>
+                <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">Repuestos por Categorias</h5>
+                <p class="text-base font-normal text-gray-500 dark:text-gray-400">Categorias de repuestos por mantenimientos
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-6" id="donut-chart-categorias"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    
+        const chartDataCategorias = JSON.parse('{{ chart_data_categorias_json|escapejs }}');
+
+        // Función para generar un color hexadecimal aleatorio
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Generar un array de colores aleatorios para cada categoría
+        const randomColors = Array.from({ length: chartDataCategorias.categorias.length }, getRandomColor);
+
+        const getCategoriasChartOptions = () => {
+            return {
+                series: chartDataCategorias.porcentajes,
+                colors: randomColors,  // Usar los colores aleatorios generados
+                chart: {
+                    height: 320,
+                    type: "donut",
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: "Total clientes",
+                                    formatter: function () {
+                                        return chartDataCategorias.total_estudiantes;
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                labels: chartDataCategorias.categorias,
+                legend: {
+                    position: "bottom",
+                },
+            };
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const chart = new ApexCharts(document.getElementById("donut-chart-categorias"), getCategoriasChartOptions());
+            chart.render();
+        });
+</script>

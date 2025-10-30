@@ -367,6 +367,11 @@ wheels = [
 ]
 
 [[package]]
+name = "django-admin-material-dashboard"
+version = "1.0.22"
+source = { git = "https://github.com/app-generator/django-admin-material-dashboard.git#c932b9cedb2602978ee7cdd45af7a2556c0a9f84" }
+
+[[package]]
 name = "django-allauth"
 version = "65.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2478,6 +2483,7 @@ dependencies = [
     { name = "boto3" },
     { name = "dj-database-url" },
     { name = "django" },
+    { name = "django-admin-material-dashboard" },
     { name = "django-allauth" },
     { name = "django-compressor" },
     { name = "django-cors-headers" },
@@ -2490,6 +2496,7 @@ dependencies = [
     { name = "gunicorn" },
     { name = "ocrmypdf" },
     { name = "onnxruntime" },
+    { name = "opencv-python-headless" },
     { name = "pdf2image" },
     { name = "pillow" },
     { name = "psycopg2-binary" },
@@ -2509,6 +2516,7 @@ requires-dist = [
     { name = "boto3", specifier = ">=1.40.57" },
     { name = "dj-database-url", specifier = ">=3.0.1" },
     { name = "django", specifier = ">=5.2.7" },
+    { name = "django-admin-material-dashboard", git = "https://github.com/app-generator/django-admin-material-dashboard.git" },
     { name = "django-allauth", specifier = ">=65.12.1" },
     { name = "django-compressor", specifier = ">=4.5.1" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
@@ -2521,6 +2529,7 @@ requires-dist = [
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "ocrmypdf", specifier = ">=16.11.1" },
     { name = "onnxruntime", specifier = ">=1.23.1" },
+    { name = "opencv-python-headless", specifier = ">=4.11.0.86" },
     { name = "pdf2image", specifier = ">=1.17.0" },
     { name = "pillow", specifier = ">=11.3.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },

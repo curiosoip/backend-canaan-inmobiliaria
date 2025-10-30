@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',          
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -36,18 +35,20 @@ INSTALLED_APPS = [
     'apps.procesos',
     'apps.departamentos',
     'apps.reportes',
-    'apps.tareas',
     'apps.urbanizaciones',
+    'apps.contabilidad',
     'apps.usuarios',
-    'apps.perfiles',
     'apps.ventas',
+    'apps.cuotas',
+    'apps.pagos',
     'apps.viviendas',
+    'apps.perfiles',
     'apps.tramites',
+    'apps.mensajes',
     'apps.web',
 ]
 
-AUTH_USER_MODEL = 'usuarios.Usuario'
-SITE_ID = 1
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -140,10 +141,9 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login'  
+LOGOUT_REDIRECT_URL = 'login'  
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

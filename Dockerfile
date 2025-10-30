@@ -1,11 +1,24 @@
+# Imagen base liviana de Python
 FROM python:3.13-slim
 
-RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
-
+# Establecer directorio de trabajo
 WORKDIR /app
-COPY . /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Evitar creación de archivos pyc y salida no bufferizada
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+# Copiar dependencias
+COPY requirements.txt .
+
+# Instalar dependencias de Python
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copiar el resto del código
+COPY . .
+
+# Exponer el puerto para Railway
 EXPOSE 8000
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "config.asgi:application", "--bind", "0.0.0.0:8000"]
+
+# Comando por defecto (ASGI con Uvicorn)
+CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,26 @@
+<div
+    class="flex flex-col lg:flex-row w-full justify-center lg:justify-between items-center p-2 bg-white bg-opacity-40  rounded-lg ">
+    <div class="flex flex-col items-center  lg:items-start px-2">
+        <div class=" text-lg font-semibold  text-gray-500  flex justify-start ">{{banner_title}}</div>
+        <div class="flex gap-2  justify-start">
+            {% if total_registros %}
+            <div class="flex gap-2 justify-start items-center text-left">
+                <strong class="text-gray-500">Total: {{total_registros}}</strong>
+
+            </div>
+            {% else %}
+            <div class="flex gap-2 justify-start items-center text-left">
+                <strong class="text-gray-500">Total: 0</strong>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if user.rol.nombre == 'Administrador' %}
+        {% if request.path == '/panel/usuarios/empresas/' %}
+            {% include 'admin/usuarios/btn_formulario_registro.html' %}
+        {% endif %}
+        {% if request.path == '/panel/usuarios/roles/' %}
+        {% include 'admin/roles/btn_formulario_registro.html' %}
+        {% endif %}
+    {% endif %}
+</div>

@@ -1,0 +1,53 @@
+{% load static %}
+<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between pb-4 mb-4  dark:border-gray-700">
+        <div class="flex items-center">
+            
+            <div>
+                <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">Mantenimientos por Semana</h5>
+                <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Total de mantenimientos por día de la semana
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="column-chart-pedidos-semana"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chartDataSemana = JSON.parse('{{ chart_data_semana_json|escapejs }}');
+
+        const optionsSemana = {
+            colors: ['#FF4560'],
+            series: chartDataSemana.series,
+            chart: {
+                type: 'bar',
+                height: 320,
+                width: '100%',
+                fontFamily: 'Inter, sans-serif',
+                toolbar: {
+                    show: false,
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '70%',
+                    borderRadiusApplication: 'end',
+                    borderRadius: 8,
+                },
+            },
+            xaxis: {
+                categories: chartDataSemana.labels,
+            },
+            yaxis: {
+                show: true,
+            },
+        };
+
+        const chartSemana = new ApexCharts(document.getElementById('column-chart-pedidos-semana'), optionsSemana);
+        chartSemana.render();
+    });
+</script>
