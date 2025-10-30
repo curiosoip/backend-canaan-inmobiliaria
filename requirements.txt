@@ -10,12 +10,10 @@ uvicorn[standard]
 psycopg2-binary
 dj-database-url 
 python-dotenv
-ocrmypdf
 boto3
 pymupdf4llm
 pytesseract
 pillow
 requests
 pdf2image
-rapidocr
 httpx
