@@ -14,17 +14,16 @@ def panel(request):
 
 
 def login_view(request):
-    # Si ya está autenticado, redirige según su rol
     if request.user.is_authenticated:
         if request.user.rol and request.user.rol.nombre == 'Administrador':
             return redirect('usuarios')
         elif request.user.rol and request.user.rol.nombre == 'Cliente':
-            return redirect('usuarios')
+            messages.error(request, "No tienes acceso a este administrador.")
+            return redirect('login')
         else:
             messages.warning(request, "Tu cuenta no tiene un rol asignado.")
             return redirect('login')
 
-    # Si envió el formulario
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -41,7 +40,8 @@ def login_view(request):
             if user.rol and user.rol.nombre == 'Administrador':
                 return redirect('usuarios')
             elif user.rol and user.rol.nombre == 'Cliente':
-                return redirect('usuarios')
+                messages.error(request, "No tienes acceso a este administrador.")
+                return redirect('login')
             else:
                 messages.warning(request, "Tu cuenta no tiene un rol asignado.")
                 return redirect('login')

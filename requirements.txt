@@ -16,4 +16,5 @@ pytesseract
 pillow
 requests
 pdf2image
+cryptography
 httpx
