@@ -1,0 +1,66 @@
+<button data-modal-target="editar-proceso-interno-modal-{{ proceso.id_proceso_interno }}"
+        data-modal-toggle="editar-proceso-interno-modal-{{ proceso.id_proceso_interno }}"
+        type="button"
+        class="text-blue-500 rounded-full cursor-pointer bg-blue-200 hover:text-blue-700 p-1 text-sm flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z"/></svg>
+    </button>
+
+<div id="editar-proceso-interno-modal-{{ proceso.id_proceso_interno }}"
+     data-modal-backdrop="static"
+     tabindex="-1"
+     aria-hidden="true"
+     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 bg-gray-800/20 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b border-b-gray-400 rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Editar Proceso Interno</h3>
+                <button type="button"
+                        class="text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="editar-proceso-interno-modal-{{ proceso.id_proceso_interno }}">
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Cerrar modal</span>
+                </button>
+            </div>
+
+            <form method="POST" action="{% url 'editar_proceso_interno' proceso.id_proceso_interno %}">
+                {% csrf_token %}
+                <div class="p-4 md:p-5 space-y-4">
+                    <div>
+                        <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+                        <input type="text" name="titulo" id="titulo" required
+                               value="{{ proceso.titulo }}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                    </div>
+
+                    <div>
+                        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                        <textarea name="descripcion" id="descripcion" rows="3"
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">{{ proceso.descripcion }}</textarea>
+                    </div>
+
+                    <div>
+                        <label for="responsables" class="block text-sm font-medium text-gray-700">Responsables</label>
+                        <select name="responsables" id="responsables" multiple
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                            {% for user in usuarios %}
+                                <option value="{{ user.id_usuario }}"
+                                        {% if user in proceso.responsables.all %}selected{% endif %}>
+                                    {{ user.first_name }} {{ user.last_name }} - ({{ user.rol.nombre }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-end p-4 border-t border-t-gray-400">
+                    <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 rounded-lg px-5 py-2.5">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

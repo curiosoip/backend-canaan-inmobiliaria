@@ -1,0 +1,43 @@
+{% load static %}
+<div class="flex w-full flex-col lg:flex-row p-2 bg-white my-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+    <div class="flex-shrink-0 flex justify-center items-center p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="text-amber-500" viewBox="0 0 32 32">
+            <g fill="none">
+                <path fill="#ffb02e"
+                      d="m15.385 7.39l-2.477-2.475A3.12 3.12 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.13 2.13 0 0 1-1.503-.621"/>
+                <path fill="#fcd53f"
+                      d="M27.875 30H4.125A2.12 2.12 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.12 2.12 0 0 1 27.875 30"/>
+            </g>
+        </svg>
+    </div>
+
+    <div class="flex flex-col lg:flex-row w-full justify-between items-start lg:items-center px-3 gap-4">
+        <div class="flex flex-col w-full gap-1">
+            <p class="text-sm font-bold text-gray-700 truncate dark:text-white uppercase">
+                {{ proceso.titulo|truncatechars:100 }}
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+                <strong>Responsables:</strong>
+                {% for responsable in proceso.responsables.all %}
+                    {% if responsable.rol.nombre != 'Cliente' %}
+                        {{ responsable.first_name }} {{ responsable.last_name }}{% if not forloop.last %}, {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+                <strong>Fecha de registro:</strong> {{ proceso.fecha_registro|date:"d/m/Y H:i" }}
+            </p>
+        </div>
+
+        <div class="flex  w-full flex-col lg:flex-row gap-2 items-end lg:items-center">
+        
+            {% if user.rol.nombre == 'Administrador' %}
+            <div class="flex gap-2 w-full justify-end">
+                {% include 'admin/procesos_internos/btn_detalle_registro.html' with proceso=proceso %}
+                {% include 'admin/procesos_internos/btn_formulario_editar.html' with proceso=proceso %}
+                {% include 'admin/procesos_internos/btn_eliminar_registro.html' with proceso=proceso %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

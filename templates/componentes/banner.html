@@ -28,5 +28,8 @@
         {% if request.path == '/panel/servicios/' %}
             {% include 'admin/servicios/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/procesos/internos/' %}
+            {% include 'admin/procesos_internos/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>
