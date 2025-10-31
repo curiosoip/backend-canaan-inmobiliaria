@@ -1,20 +1,17 @@
 <!-- Botón para abrir el modal -->
 <button data-modal-target="venta-modal" data-modal-toggle="venta-modal" type="button"
-    class="text-white flex gap-2 cursor-pointer justify-center items-center bg-gradient-to-br my-2 w-full lg:w-auto from-gray-400 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+    class="text-white flex gap-2 cursor-pointer justify-center items-center  my-2 w-full lg:w-auto bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path fill="white" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
     </svg>
     Registrar Venta
 </button>
 
-<!-- Modal -->
 <div id="venta-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 bg-gray-800/20 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b border-b-gray-400 rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Registrar Venta
                 </h3>
@@ -47,80 +44,71 @@
 
                 <div class="p-4 md:p-5 space-y-4">
 
-                    <!-- Usuario -->
                     <div>
                         <label for="usuario" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Usuario</label>
                         <select name="usuario" id="usuario" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="">-- Ninguno --</option>
                             {% for user in usuarios %}
-                                <option value="{{ user.id }}">{{ user.username }}</option>
+                                <option value="{{ user.id_usuario }}">{{ user.username }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    <!-- Tipo de venta -->
                     <div>
                         <label for="tipo_venta" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de venta</label>
                         <select name="tipo_venta" id="tipo_venta" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="CONTADO">Venta al Contado</option>
                             <option value="CREDITO">Venta a Crédito</option>
-                            <option value="FINANCIAMIENTO">Financiamiento Mixto</option>
+                            <option value="FINANCIAMIENTO">Venta por Financiamiento</option>
                         </select>
                     </div>
 
-                    <!-- Lote -->
                     <div>
                         <label for="lote" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Lote</label>
-                        <select name="lote" id="lote" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <select name="lote" id="lote" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="">-- Ninguno --</option>
                             {% for lote in lotes %}
-                                <option value="{{ lote.id }}">{{ lote.nombre }}</option>
+                                <option value="{{ lote.id_lote }}">{{ lote.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    <!-- Vivienda -->
                     <div>
                         <label for="vivienda" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Vivienda</label>
-                        <select name="vivienda" id="vivienda" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <select name="vivienda" id="vivienda" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="">-- Ninguno --</option>
                             {% for vivienda in viviendas %}
-                                <option value="{{ vivienda.id }}">{{ vivienda.nombre }}</option>
+                                <option value="{{ vivienda.id_vivienda }}">{{ vivienda.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
-
-                    <!-- Monto total -->
-                    <div>
+                    <div class="flex w-full justify-between items-center gap-2">
+                  
                         <input type="number" name="monto_total" id="monto_total" required placeholder="Monto total" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    </div>
-
-                    <!-- Monto inicial -->
-                    <div>
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                   
                         <input type="number" name="monto_inicial" id="monto_inicial" placeholder="Monto inicial" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                   
                     </div>
-
-                    <!-- Total cuotas -->
-                    <div>
+                    <div class="flex w-full justify-between items-center gap-2">
                         <input type="number" name="total_cuotas" id="total_cuotas" placeholder="Total de cuotas"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    </div>
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
-                    <!-- Tasa de interés -->
-                    <div>
                         <input type="number" name="tasa_interes" id="tasa_interes" placeholder="Tasa de interés (%)" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
+                   
+
+                    
 
                 </div>
 
-                <!-- Submit -->
-                <div class="flex justify-end p-4 border-t dark:border-gray-600">
+                <div class="flex justify-end p-4 border-t border-t-gray-400 dark:border-gray-600">
                     <button type="submit"
-                        class="px-4 py-2 cursor-pointer text-white bg-gray-500 rounded-lg shadow-sm hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-200 dark:focus:ring-gray-800">
+                        class="text-white flex gap-2 cursor-pointer justify-center items-center  my-2 w-full lg:w-auto bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Guardar Venta
                     </button>
                 </div>

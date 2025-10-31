@@ -10,7 +10,7 @@ class Venta(models.Model):
     TIPO_VENTA = (
         ('CONTADO', 'Venta al Contado'),
         ('CREDITO', 'Venta a Crédito'),
-        ('FINANCIAMIENTO', 'Venta con Financiamiento Mixto'),
+        ('FINANCIAMIENTO', 'Venta con Financiamiento'),
     )
 
     id_venta = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

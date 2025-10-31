@@ -22,5 +22,8 @@
         {% if request.path == '/panel/usuarios/roles/' %}
         {% include 'admin/roles/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/ventas/' %}
+            {% include 'admin/ventas/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>

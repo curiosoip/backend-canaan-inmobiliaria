@@ -5,18 +5,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Venta
 from .forms import VentaForm
-
+from apps.viviendas.models import Vivienda
+from apps.usuarios.models import Usuario
 
 @login_required
-def index_ventas(request):
-    # Actualizar el estado de ventas con saldo cero automáticamente
+def index(request):
     ventas_activo = Venta.objects.exclude(estado='CANCELADO')
     for venta in ventas_activo:
         if venta.saldo_restante <= 0:
             venta.estado = 'CANCELADO'
             venta.save(update_fields=['estado'])
 
-    # Filtrado por búsqueda
     query = request.GET.get('q', '')
     if query:
         lista_ventas = Venta.objects.filter(
@@ -29,15 +28,18 @@ def index_ventas(request):
     else:
         lista_ventas = Venta.objects.all().order_by('-fecha_venta')
 
-    # Paginación
     paginacion = Paginator(lista_ventas, 6)
     numero_pagina = request.GET.get('page')
     pagina_actual = paginacion.get_page(numero_pagina)
+
+    clientes = Usuario.objects.filter(rol__nombre='Cliente')
 
     context = {
         "banner_title": "Ventas",
         "pagina_actual": pagina_actual,
         "total_registros": lista_ventas.count(),
+        "viviendas":Vivienda.objects.all(),
+        "usuarios": clientes,
         "query": query
     }
 
