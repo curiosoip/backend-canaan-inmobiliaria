@@ -64,6 +64,7 @@
              
             <div class="flex py-1 h-full gap-2 justify-end items-end text-base font-semibold text-gray-900 dark:text-white">
                 {% if user.rol.nombre == 'Administrador' %}
+                 {% include 'admin/usuarios/btn_resetear_password.html' with usuario=usuario %}
                 {% include 'admin/usuarios/btn_editar_registro.html' with usuario=usuario %}
                 {% include 'admin/usuarios/btn_eliminar_registro.html' with usuario=usuario %}
                 {% endif %}
