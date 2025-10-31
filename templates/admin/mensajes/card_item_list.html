@@ -1,0 +1,72 @@
+{% load static %}
+<div class="flex w-full p-2 bg-white my-1 rounded-lg">
+    <div class="flex flex-col xl:flex-row w-full justify-between items-start xl:items-center">
+
+        <!-- Imagen o ícono del remitente -->
+        <div class="flex w-full lg:w-auto justify-start p-3">
+            {% if mensaje.remitente.foto_url %}
+            <img src="{{ mensaje.remitente.foto_url }}" class="w-40 rounded-lg shadow-xs" alt="foto-{{ mensaje.remitente.username }}">
+            {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="55" class="text-gray-500" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12 2a5 5 0 1 1-5 5l.005-.217A5 5 0 0 1 12 2m2 12a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5z" />
+            </svg>
+            {% endif %}
+        </div>
+
+        <!-- Información del mensaje -->
+        <div class="flex flex-col w-full justify-start items-start px-3">
+            <p class="text-sm font-bold text-gray-700 truncate dark:text-white uppercase">
+                {{ mensaje.asunto }}
+            </p>
+            <p class="flex flex-col gap-1 text-xs text-gray-500 truncate dark:text-gray-400">
+                <div class="flex gap-2 text-xs text-gray-500">
+                    <strong>De:</strong> {{ mensaje.remitente.first_name }} {{ mensaje.remitente.last_name }}
+                </div>
+                <div class="flex gap-2 text-xs text-gray-500">
+                    <strong>Email:</strong> {{ mensaje.remitente.email }}
+                </div>
+            </p>
+        </div>
+
+        <!-- Estado del mensaje -->
+        <div class="flex flex-col gap-1 px-3 py-2 text-md w-full font-bold text-gray-500">
+            <strong class="m-0 p-0 text-xs font-normal">Estado:</strong>
+            {% if mensaje.leido %}
+                <span class="text-green-600">Leído</span>
+            {% else %}
+                <span class="text-red-600">No leído</span>
+            {% endif %}
+        </div>
+
+        <!-- Etiqueta del tipo -->
+        {% if mensaje.importante %}
+        <div class="flex justify-start items-center">
+            <div class="flex w-50 justify-center gap-2 text-xs bg-teal-700 rounded-full px-3 py-2 font-semibold text-white">
+                Importante
+            </div>
+        </div>
+        {% else %}
+        <div class="flex justify-start items-center">
+            <div class="flex w-50 justify-center gap-2 text-xs bg-slate-700 rounded-full px-3 py-2 font-semibold text-white">
+                Normal
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="flex gap-2 w-full justify-between items-center">
+            <div class="flex flex-col gap-1 px-3 py-2 text-gray-500 w-full justify-center items-center" style="font-size: 10px;">
+                <strong class="m-0 p-0">Enviado:</strong>
+                {{ mensaje.fecha_envio }}
+            </div>
+
+            <div class="flex py-1 h-full gap-2 justify-end items-end text-base font-semibold text-gray-900 dark:text-white">
+                {% if user.rol.nombre == 'Administrador' %}
+                    {% include 'admin/mensajes/btn_marcar_leido.html' with mensaje=mensaje %}
+                    {% include 'admin/mensajes/btn_eliminar_registro.html' with mensaje=mensaje %}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>

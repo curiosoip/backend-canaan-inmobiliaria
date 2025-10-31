@@ -76,7 +76,7 @@ def empresas(request):
     pagina_actual = paginacion.get_page(request.GET.get('page'))
 
     context = {
-        "banner_title": "Usuarios - Empresas",
+        "banner_title": "Usuarios del Equipo Canaán",
         "pagina_actual": pagina_actual,
         "total_registros": usuarios_qs.count(),
         "query": query,
