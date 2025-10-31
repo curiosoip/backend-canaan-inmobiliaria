@@ -8,6 +8,7 @@ urlpatterns = [
     path('', index, name='inicio'),
     path('panel/perfiles/', include('apps.perfiles.urls')),
     path('panel/usuarios/', include('apps.usuarios.urls')),
+    path('panel/mensajes/', include('apps.mensajes.urls')),
     path('panel/reportes/', include('apps.reportes.urls')),
     path('login', login_view, name='login'),
     path('logout', LogoutView.as_view(next_page='login'), name='logout'),
