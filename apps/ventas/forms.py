@@ -7,6 +7,7 @@ class VentaForm(forms.ModelForm):
         model = Venta
         fields = [
             'usuario',
+            'servicio',
             'lote',
             'vivienda',
             'tipo_venta',
@@ -21,6 +22,7 @@ class VentaForm(forms.ModelForm):
         ]
         widgets = {
             'usuario': forms.Select(attrs={'class': 'form-control'}),
+            'servicio': forms.Select(attrs={'class': 'form-control'}),
             'lote': forms.Select(attrs={'class': 'form-control'}),
             'vivienda': forms.Select(attrs={'class': 'form-control'}),
             'tipo_venta': forms.Select(attrs={'class': 'form-control'}),

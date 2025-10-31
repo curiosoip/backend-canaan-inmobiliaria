@@ -4,7 +4,7 @@ from decimal import Decimal
 from apps.usuarios.models import Usuario
 from apps.urbanizaciones.models import Lote
 from apps.viviendas.models import Vivienda
-
+from apps.servicios.models import Servicio 
 
 class Venta(models.Model):
     TIPO_VENTA = (
@@ -17,7 +17,7 @@ class Venta(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='ventas')
     lote = models.ForeignKey(Lote, on_delete=models.SET_NULL, null=True, blank=True, related_name='ventas')
     vivienda = models.ForeignKey(Vivienda, on_delete=models.SET_NULL, null=True, blank=True, related_name='ventas')
-
+    servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, blank=True, related_name='ventas') 
     tipo_venta = models.CharField(max_length=20, choices=TIPO_VENTA)
     monto_total = models.DecimalField(max_digits=12, decimal_places=2)
     monto_inicial = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)

@@ -25,5 +25,8 @@
         {% if request.path == '/panel/ventas/' %}
             {% include 'admin/ventas/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/servicios/' %}
+            {% include 'admin/servicios/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>

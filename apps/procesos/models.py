@@ -4,9 +4,6 @@ from django.utils import timezone
 import uuid
 
 class Proceso(models.Model):
-    """
-    Un proceso es un conjunto de tareas relacionadas a un cliente (usuario con rol CLIENTE).
-    """
     nombre = models.CharField(max_length=200)
     cliente = models.ForeignKey(
         settings.AUTH_USER_MODEL,

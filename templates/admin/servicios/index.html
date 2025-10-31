@@ -1,0 +1,18 @@
+{% extends "admin/_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include 'componentes/banner.html' %}
+
+
+
+<ul class="flex flex-col w-full justify-center items-center py-1">
+    {% for servicio in servicios %}
+        {% include 'admin/servicios/card_item_list.html' with servicio=servicio %}
+    {% empty %}
+        <li class="text-gray-500 font-semibold py-10">No hay servicios registrados.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

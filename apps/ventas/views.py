@@ -7,7 +7,7 @@ from .models import Venta
 from .forms import VentaForm
 from apps.viviendas.models import Vivienda
 from apps.usuarios.models import Usuario
-
+from apps.servicios.models import Servicio
 @login_required
 def index(request):
     ventas_activo = Venta.objects.exclude(estado='CANCELADO')
@@ -39,6 +39,7 @@ def index(request):
         "pagina_actual": pagina_actual,
         "total_registros": lista_ventas.count(),
         "viviendas":Vivienda.objects.all(),
+        "servicios":Servicio.objects.all(),
         "usuarios": clientes,
         "query": query
     }
