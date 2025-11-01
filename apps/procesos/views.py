@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from .models import ProcesoInterno, Proceso
-from .forms import ProcesoInternoForm, ProcesoForm
+from .models import ProcesoInterno, Proceso,PasoProcesoInterno
+from .forms import ProcesoInternoForm, ProcesoForm,PasoProcesoInternoForm
 from django.contrib.auth.decorators import login_required
 from apps.usuarios.models import Usuario
+from django.contrib import messages
 
 
 
@@ -90,6 +91,43 @@ def eliminar_proceso_interno(request, id_proceso_interno):
         print(f"Error al eliminar el proceso interno: {str(e)}")
     return redirect('procesos_internos')
 
+@login_required
+def registrar_paso_proceso_interno(request, id_proceso_interno):
+    proceso = get_object_or_404(ProcesoInterno, id_proceso_interno=id_proceso_interno)
+
+    if request.method == 'POST':
+        form = PasoProcesoInternoForm(request.POST)
+        if form.is_valid():
+            paso = form.save(commit=False)
+            paso.proceso = proceso
+            paso.save()
+            messages.success(request, f'✅ Subproceso "{paso.titulo}" agregado correctamente al proceso "{proceso.titulo}".')
+            return redirect('procesos_internos')
+        else:
+            messages.error(request, '❌ Error al registrar el paso. Verifica los datos ingresados.')
+    else:
+        form = PasoProcesoInternoForm()
+
+    context = {
+        'form': form,
+        'proceso': proceso,
+        'banner_title': f'Agregar paso a {proceso.titulo}'
+    }
+    return render(request, 'admin/procesos_internos/index.html', context)
+
+
+@login_required
+def eliminar_paso_proceso_interno(request, id_paso):
+    paso = get_object_or_404(PasoProcesoInterno, id_paso=id_paso)
+    id_proceso_interno = paso.proceso.id_proceso_interno
+    titulo_paso = paso.titulo
+    try:
+        paso.delete()
+        messages.success(request, f'🗑️ Subproceso "{titulo_paso}" eliminado correctamente.')
+    except Exception as e:
+        messages.error(request, f'⚠️ Error al eliminar el subproceso: {str(e)}')
+
+    return redirect('procesos_internos')
 
 @login_required
 def index_proceso(request):

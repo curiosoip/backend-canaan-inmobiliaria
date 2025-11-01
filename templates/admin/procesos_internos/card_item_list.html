@@ -1,5 +1,5 @@
 {% load static %}
-<div class="flex w-full flex-col lg:flex-row p-2 bg-white my-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex w-full flex-col lg:flex-row p-2 bg-white my-2 rounded-lg transition-shadow">
     <div class="flex-shrink-0 flex justify-center items-center p-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="text-amber-500" viewBox="0 0 32 32">
             <g fill="none">
@@ -28,6 +28,11 @@
                 <strong>Fecha de registro:</strong> {{ proceso.fecha_registro|date:"d/m/Y H:i" }}
             </p>
         </div>
+        <div class=" gap-1 text-sm flex justify-center items-center">
+            Subprocesos: <strong class="text-xl">{{proceso.pasos.count}}</strong> 
+            {% include 'admin/procesos_internos/btn_formulario_subproceso_registro.html' with proceso=proceso %}
+        </div>
+        
 
         <div class="flex  w-full flex-col lg:flex-row gap-2 items-end lg:items-center">
         

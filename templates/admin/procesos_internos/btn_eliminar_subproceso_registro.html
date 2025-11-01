@@ -1,6 +1,6 @@
 <!-- Botón para abrir el modal -->
-<button type="button" data-modal-target="static-modal-proceso-{{ proceso.id_proceso_interno }}"
-    data-modal-toggle="static-modal-proceso-{{ proceso.id_proceso_interno }}"
+<button type="button" data-modal-target="static-modal-paso-{{ paso.id_paso }}"
+    data-modal-toggle="static-modal-paso-{{ paso.id_paso }}"
     class="text-gray-500 rounded-full cursor-pointer bg-red-200 hover:text-gray-700 p-1 text-sm flex items-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path fill="red"
@@ -8,18 +8,18 @@
     </svg>
 </button>
 
-<div id="static-modal-proceso-{{ proceso.id_proceso_interno }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+<div id="static-modal-paso-{{ paso.id_paso }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 bg-gray-800/20 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-center justify-between p-4 md:p-5 border-b border-b-slate-200 rounded-t dark:border-gray-600">
                 <h3 class="text-xl flex flex-col gap-2 font-semibold text-red-900">
-                    ¿Está seguro que desea eliminar este proceso interno?
-                    <strong class="text-xs font-extrabold text-gray-500">{{ proceso.id_proceso_interno }}</strong>
+                    ¿Está seguro que desea eliminar este subproceso?
+                    <strong class="text-xs font-extrabold text-gray-500">{{ paso.id_paso }}</strong>
                 </h3>
                 <button type="button"
                     class="text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="static-modal-proceso-{{ proceso.id_proceso_interno }}">
+                    data-modal-hide="static-modal-paso-{{ paso.id_paso }}">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -30,22 +30,16 @@
             </div>
 
             <div class="p-4 flex flex-col gap-2 w-full text-gray-500">
-                <div><strong class="text-xs text-gray-400 flex flex-col gap-2">Título:</strong> {{ proceso.titulo }}</div>
-                <div><strong class="text-xs text-gray-400 flex flex-col gap-2">Responsables:</strong>
-                    {% for user in proceso.responsables.all %}
-                        {{ user.first_name }} {{user.last_name}}{% if not forloop.last %}, {% endif %}
-                    {% empty %}
-                        Sin responsables
-                    {% endfor %}
-                </div>
+                <div><strong class="text-xs text-gray-400 flex flex-col gap-2">Título:</strong> {{ paso.titulo }}</div>
+                <div><strong class="text-xs text-gray-400 flex flex-col gap-2">Orden:</strong> {{ paso.orden }}</div>
             </div>
 
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <a href="{% url 'eliminar_proceso_interno' proceso.id_proceso_interno %}" data-modal-hide="static-modal-proceso-{{ proceso.id_proceso_interno }}"
+                <a href="{% url 'eliminar_paso_proceso_interno' paso.id_paso %}" data-modal-hide="static-modal-paso-{{ paso.id_paso }}"
                     class="text-white bg-red-500 cursor-pointer hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Eliminar
                 </a>
-                <button data-modal-hide="static-modal-proceso-{{ proceso.id_proceso_interno }}" type="button"
+                <button data-modal-hide="static-modal-paso-{{ paso.id_paso }}" type="button"
                     class="py-2.5 px-5 ms-3 text-sm cursor-pointer font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
                     Cancelar
                 </button>
@@ -53,4 +47,3 @@
         </div>
     </div>
 </div>
-{% include 'componentes/error.html' with messages=messages %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import ProcesoInterno, Proceso
+from .models import ProcesoInterno, Proceso,PasoProcesoInterno
 
 class ProcesoInternoForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,18 @@ class ProcesoForm(forms.ModelForm):
             'documentos',
             'observaciones',
         ]
+
+class PasoProcesoInternoForm(forms.ModelForm):
+    class Meta:
+        model = PasoProcesoInterno
+        fields = ['orden', 'titulo']
+        widgets = {
+            'orden': forms.NumberInput(attrs={
+                'class': 'border rounded p-2 w-full',
+                'placeholder': 'Número de orden'
+            }),
+            'titulo': forms.TextInput(attrs={
+                'class': 'border rounded p-2 w-full',
+                'placeholder': 'Título del paso'
+            }),
+        }

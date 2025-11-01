@@ -1088,6 +1088,9 @@
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
+  .mt-3 {
+    margin-top: calc(var(--spacing) * 3);
+  }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
   }
@@ -1830,6 +1833,9 @@
   .resize {
     resize: both;
   }
+  .list-disc {
+    list-style-type: disc;
+  }
   .grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -2170,6 +2176,9 @@
   .border-t-gray-400 {
     border-top-color: var(--color-gray-400);
   }
+  .border-t-slate-200 {
+    border-top-color: var(--color-slate-200);
+  }
   .border-b-gray-200 {
     border-bottom-color: var(--color-gray-200);
   }
@@ -2178,6 +2187,12 @@
   }
   .border-b-gray-400 {
     border-bottom-color: var(--color-gray-400);
+  }
+  .border-b-slate-200 {
+    border-bottom-color: var(--color-slate-200);
+  }
+  .border-b-slate-400 {
+    border-bottom-color: var(--color-slate-400);
   }
   .apexcharts-active {
     .apexcharts-canvas .apexcharts-tooltip-series-group& .apexcharts-tooltip-y-group {
@@ -2547,6 +2562,12 @@
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
   }
+  .pl-2 {
+    padding-left: calc(var(--spacing) * 2);
+  }
+  .pl-6 {
+    padding-left: calc(var(--spacing) * 6);
+  }
   .datatable-empty {
     .datatable-wrapper .datatable-table & {
       text-align: center;
@@ -2753,6 +2774,9 @@
   .text-gray-900 {
     color: var(--color-gray-900);
   }
+  .text-green-500 {
+    color: var(--color-green-500);
+  }
   .text-green-600 {
     color: var(--color-green-600);
   }
@@ -2788,6 +2812,9 @@
   }
   .text-slate-900 {
     color: var(--color-slate-900);
+  }
+  .text-teal-500 {
+    color: var(--color-teal-500);
   }
   .text-white {
     color: var(--color-white);
@@ -3037,6 +3064,13 @@
       }
     }
   }
+  .hover\:text-green-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-green-600);
+      }
+    }
+  }
   .hover\:text-indigo-700 {
     &:hover {
       @media (hover: hover) {
@@ -3048,6 +3082,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-slate-700);
+      }
+    }
+  }
+  .hover\:text-teal-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-teal-600);
       }
     }
   }

@@ -24,6 +24,25 @@ class ProcesoInterno(models.Model):
 
     def __str__(self):
         return f"{self.titulo}"
+    
+class PasoProcesoInterno(models.Model):
+    id_paso = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    proceso = models.ForeignKey(
+        ProcesoInterno,
+        on_delete=models.CASCADE,
+        related_name='pasos'
+    )
+    orden = models.PositiveIntegerField(default=1, help_text="Número de orden del paso")
+    titulo = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = "paso_proceso"
+        verbose_name = "Paso del Proceso"
+        verbose_name_plural = "Pasos del Proceso"
+        ordering = ['orden']
+
+    def __str__(self):
+        return f"{self.orden}. {self.titulo}"
 
 class Proceso(models.Model):
     id_proceso = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
