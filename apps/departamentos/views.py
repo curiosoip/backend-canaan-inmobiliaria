@@ -8,6 +8,11 @@ from apps.viviendas.models import Vivienda
 from apps.tramites.models import Tramite
 from .serializers import DepartamentoSerializer
 from django.db import models
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import DepartamentoForm
+from django.core.paginator import Paginator
 
 
 class DepartamentoListView(APIView):
@@ -51,3 +56,72 @@ class DepartamentoListView(APIView):
                         d.pop(rel, None)
 
         return Response(data)
+
+
+@login_required
+def index_departamentos(request):
+    departamentos=Departamento.objects.all().order_by('-fecha_registro')
+    context = {
+        "banner_title": "Departamentos",
+        "departamentos": departamentos,
+        "total_registros": departamentos.count()
+    }
+    return render(request, 'admin/departamentos/index.html', context)
+
+
+@login_required
+def registrar_departamento(request):
+    if request.method == 'POST':
+        form = DepartamentoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Departamento registrado correctamente.")
+            return redirect('departamentos')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = DepartamentoForm()
+
+    context = {
+        'form': form,
+        'banner_title': 'Registrar Departamento'
+    }
+    return render(request, 'admin/departamentos/index.html', context)
+
+
+@login_required
+def editar_departamento(request, id_departamento):
+    departamento = get_object_or_404(Departamento, id_departamento=id_departamento)
+
+    if request.method == 'POST':
+        form = DepartamentoForm(request.POST, instance=departamento)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Departamento actualizado correctamente.")
+            return redirect('departamentos')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = DepartamentoForm(instance=departamento)
+
+    context = {
+        'form': form,
+        'departamento': departamento,
+        'banner_title': 'Editar Departamento'
+    }
+    return render(request, 'admin/departamentos/index.html', context)
+
+
+@login_required
+def eliminar_departamento(request, id_departamento):
+    departamento = get_object_or_404(Departamento, id_departamento=id_departamento)
+    try:
+        departamento.delete()
+        messages.success(request, "Departamento eliminado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al eliminar el departamento: {str(e)}")
+    return redirect('departamentos')

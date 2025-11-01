@@ -1,0 +1,17 @@
+{% extends "admin/_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include 'componentes/banner.html' %}
+
+<ul class="flex flex-col w-full justify-center items-center py-1">
+    {% for departamento in departamentos %}
+        {% include 'admin/departamentos/card_item_list.html' with departamento=departamento %}
+    {% empty %}
+        <li class="text-gray-500 font-semibold py-10">No hay departamentos registrados.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}

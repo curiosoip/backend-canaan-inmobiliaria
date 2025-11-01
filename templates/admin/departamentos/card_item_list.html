@@ -1,0 +1,34 @@
+{% load static %}
+<div class="flex w-full p-3 bg-white my-2 rounded-lg ">
+    <div class="flex flex-col lg:flex-row w-full justify-between items-start lg:items-center gap-3">
+
+        <div class="flex-shrink-0 flex justify-center items-center ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="text-slate-500" viewBox="0 0 24 24"><path fill="currentColor" d="M18.364 17.364L12 23.728l-6.364-6.364a9 9 0 1 1 12.728 0M12 15a4 4 0 1 0 0-8a4 4 0 0 0 0 8m0-2a2 2 0 1 1 0-4a2 2 0 0 1 0 4"/></svg>
+        </div>
+
+        <div class="flex flex-col w-full justify-start items-start gap-2">
+            <p class="text-sm font-bold text-slate-700 truncate dark:text-white uppercase">
+                {{ departamento.nombre }}
+            </p>
+            <div class="flex  gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex gap-1   py-1 rounded-lg"><strong>Lat:</strong> {{ departamento.latitude|default:"-" }}</div>
+                <div class="flex gap-1   py-1 rounded-lg"><strong>Lng:</strong> {{ departamento.longitude|default:"-" }}</div>
+                
+            </div>
+            
+        </div>
+        <div class="flex w-full flex-col lg:flex-row flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Urbanizaciones:</strong> {{ departamento.urbanizaciones.count }}</div>
+                <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Viviendas:</strong> {{ departamento.viviendas.count }}</div>
+                <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Trámites:</strong> {{ departamento.tramites.count }}</div>
+            </div>
+
+        <div class="flex w-full  gap-2 justify-end items-end ">
+            {% if user.rol.nombre == 'Administrador' %}
+                {% include 'admin/departamentos/btn_formulario_editar.html' with departamento=departamento %}
+                {% include 'admin/departamentos/btn_eliminar_registro.html' with departamento=departamento %}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
