@@ -12,13 +12,18 @@
                 {{ servicio.nombre }}
             </p>
 
-            {% if servicio.descripcion %}
-            <div class="flex gap-2 text-xs text-gray-500 truncate dark:text-gray-400">
-                <strong>Descripción:</strong> {{ servicio.descripcion }}
+          {% if servicio.descripcion %}
+            <div class="flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <strong>Descripción:</strong>
+                <span class="line-clamp-2">{{ servicio.descripcion }}</span>
             </div>
             {% else %}
             <div class="flex gap-2 text-xs text-gray-400 italic">Sin descripción</div>
             {% endif %}
+
+
+
+
         </div>
 
         <div class="flex gap-3 w-full justify-between items-center">

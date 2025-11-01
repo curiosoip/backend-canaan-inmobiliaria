@@ -4,6 +4,88 @@
 {% block content %}
 
 <div class="flex flex-col gap-2 justify-center w-full items-center mt-4">
+    
+
+<div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="sm:hidden">
+                <label for="tabs" class="sr-only">Select tab</label>
+                <select id="tabs" class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 focus:text-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>Total</option>
+                    <option>Servicios activos</option>
+                    <option>Mapa</option>
+                </select>
+            </div>
+            <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                <li class="w-full">
+                    <button id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true" class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Total</button>
+                </li>
+                <li class="w-full">
+                    <button id="about-tab" data-tabs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false" class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Servicios activos</button>
+                </li>
+                <li class="w-full">
+                    <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="false" class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Mapa</button>
+                </li>
+            </ul>
+            <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
+                <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                    <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8">
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">100</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Clientes</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">300</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Lotes</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">400</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Viviendas</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">200</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Trámites</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">5</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Consultorías</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">4</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Importaciones</dd>
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <dt class="mb-2 text-3xl font-extrabold">4</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Red Cors</dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel" aria-labelledby="about-tab">
+                    <div class="flex w-full justify-center gap-8 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" class="text-slate-400" viewBox="0 0 24 24"><path fill="currentColor" d="M20 9.67V9.5a7.95 7.95 0 0 0-5.59-7.62h-.06a8.3 8.3 0 0 0-2.59-.36A8.21 8.21 0 0 0 4 9.67a3 3 0 0 0 0 5.66a8 8 0 0 0 8 7.17h.23a8.13 8.13 0 0 0 7.68-7.16A3 3 0 0 0 20 9.67M12.18 20.5a6 6 0 0 1-6.09-5h11.77a6.09 6.09 0 0 1-5.68 5m6.82-7H5a1 1 0 0 1 0-2h2a1 1 0 0 0 0-2H6a6.4 6.4 0 0 1 3-5.15V7.5a1 1 0 0 0 2 0V3.59a7 7 0 0 1 .82-.09H12a7 7 0 0 1 1 .09V7.5a1 1 0 0 0 2 0V4.32a6.7 6.7 0 0 1 1.18.87A6 6 0 0 1 18 9.5h-1a1 1 0 0 0 0 2h2a1 1 0 0 1 0 2"/></svg>
+                           <ul role="list" class="space-y-4 text-gray-500 dark:text-gray-400">
+                                {% for servicio in servicios_activos %}
+                                <li class="flex space-x-2 rtl:space-x-reverse items-center">
+                                    <svg class="shrink-0 w-3.5 h-3.5 text-green-600 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                    </svg>
+                                    <span class="leading-tight text-sm"> <strong>{{servicio.nombre}}</strong>  - {{servicio.descripcion}}</span>
+                                </li>
+                                {% empty %}
+                                    <li>No hay servicios activos.</li>
+                                {% endfor %}
+                            
+                            </ul>
+                    </div>
+                 
+                </div>
+                <div class="hidden p-4 bg-white rounded-lg dark:bg-gray-800" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                    <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     <div class="flex justify-center flex-col gap-2 lg:flex-row w-full">
         {% include 'componentes/graficas/card_chart_line_label.html'  %}

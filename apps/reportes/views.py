@@ -6,7 +6,12 @@ from django.db.models.functions import Extract
 from datetime import datetime, timedelta  # Añadir timedelta aquí
 from django.db.models.functions import TruncDate
 import json
+from apps.servicios.models import Servicio
 
 def index(request):
-    return render(request, 'admin/reportes/index.html')
+    servicios_activos = Servicio.objects.filter(activo=True)
+    
+    return render(request, 'admin/reportes/index.html', {
+        'servicios_activos': servicios_activos
+    })
 
