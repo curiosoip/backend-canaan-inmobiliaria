@@ -26,7 +26,6 @@
         <div class="flex w-full  gap-2 justify-end items-end ">
             {% if user.rol.nombre == 'Administrador' %}
                 {% include 'admin/departamentos/btn_formulario_editar.html' with departamento=departamento %}
-                {% include 'admin/departamentos/btn_eliminar_registro.html' with departamento=departamento %}
             {% endif %}
         </div>
 
