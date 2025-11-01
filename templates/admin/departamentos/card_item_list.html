@@ -17,17 +17,13 @@
             </div>
             
         </div>
-        <div class="flex w-full flex-col lg:flex-row flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div class="flex w-full flex-col justify-end items-start lg:items-end lg:flex-row flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
                 <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Urbanizaciones:</strong> {{ departamento.urbanizaciones.count }}</div>
                 <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Viviendas:</strong> {{ departamento.viviendas.count }}</div>
                 <div class="flex gap-1 bg-gray-100 px-2 py-1 rounded-lg"><strong>Trámites:</strong> {{ departamento.tramites.count }}</div>
             </div>
 
-        <div class="flex w-full  gap-2 justify-end items-end ">
-            {% if user.rol.nombre == 'Administrador' %}
-                {% include 'admin/departamentos/btn_formulario_editar.html' with departamento=departamento %}
-            {% endif %}
-        </div>
+       
 
     </div>
 </div>
