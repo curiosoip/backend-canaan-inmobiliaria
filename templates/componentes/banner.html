@@ -37,5 +37,8 @@
         {% if request.path == '/panel/consultorias/' %}
             {% include 'admin/consultorias/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/importaciones/' %}
+            {% include 'admin/importaciones/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>

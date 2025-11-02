@@ -42,11 +42,11 @@
                 </div>
                 {% endif %}
 
-                <div class="p-4 md:p-5 space-y-4">
+                <div class="p-4 md:p-5 space-y-2">
                     <div>
                         <label for="servicio" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Servicio</label>
                         <select name="servicio" id="servicio" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="">-- Selecciona un servicio --</option>
                             {% for servicio in servicios %}
                                 <option value="{{ servicio.id_servicio }}">{{ servicio.nombre }}</option>
@@ -57,7 +57,7 @@
                     <div>
                         <label for="usuario" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Usuario</label>
                         <select name="usuario" id="usuario" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="">-- Ninguno --</option>
                             {% for user in usuarios %}
                                 <option value="{{ user.id_usuario }}">{{ user.username }}</option>
@@ -68,7 +68,7 @@
                     <div>
                         <label for="tipo_venta" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de venta</label>
                         <select name="tipo_venta" id="tipo_venta" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="CONTADO">Venta al Contado</option>
                             <option value="CREDITO">Venta a Crédito</option>
                             <option value="FINANCIAMIENTO">Venta por Financiamiento</option>
@@ -97,26 +97,26 @@
                     <div class="flex w-full justify-between items-center gap-2">
                   
                         <input type="number" name="monto_total" id="monto_total" required placeholder="Monto total" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                    
                         <input type="number" name="monto_inicial" id="monto_inicial" placeholder="Monto inicial" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                    
                     </div>
                     <div class="flex w-full justify-between items-center gap-2">
                         <input type="number" name="total_cuotas" id="total_cuotas" placeholder="Total de cuotas"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                         <input type="number" name="tasa_interes" id="tasa_interes" placeholder="Tasa de interés (%)" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
                     <p class="flex w-full py-2 px-1 justify-start items-center text-sm font-semibold text-slate-500">Si es por financiamiento debe llenar estos campos</p>
                     <div class="flex w-full justify-between items-center gap-2">
                         <input type="number" name="banco_monto" id="banco_monto" placeholder="Monto Banco" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
                         <input type="number" name="empresa_monto" id="empresa_monto" placeholder="Monto Empresa" step="0.01"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     </div>
 
 
