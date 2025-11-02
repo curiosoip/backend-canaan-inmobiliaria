@@ -11,6 +11,7 @@ urlpatterns = [
     path('panel/mensajes/', include('apps.mensajes.urls')),
     path('panel/reportes/', include('apps.reportes.urls')),
     path('panel/servicios/', include('apps.servicios.urls')),
+    path('panel/tramites/', include('apps.tramites.urls')),
     path('panel/departamentos/', include('apps.departamentos.urls')),
     path('panel/procesos/', include('apps.procesos.urls')),
     path('panel/ventas/', include('apps.ventas.urls')),

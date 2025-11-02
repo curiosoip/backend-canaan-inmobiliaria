@@ -1,0 +1,84 @@
+<button type="button" data-modal-target="modal-requisito-{{ tramite.id_tramite }}"
+    data-modal-toggle="modal-requisito-{{ tramite.id_tramite }}"
+    class="text-white rounded-full cursor-pointer bg-teal-600 hover:bg-teal-600 p-1 text-sm flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M10.5 20a1.5 1.5 0 0 0 3 0v-6.5H20a1.5 1.5 0 0 0 0-3h-6.5V4a1.5 1.5 0 0 0-3 0v6.5H4a1.5 1.5 0 0 0 0 3h6.5z"/></g></svg>
+</button>
+
+<div id="modal-requisito-{{ tramite.id_tramite }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 bg-gray-800/20 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full">
+    <div class="relative p-4 w-full max-w-lg max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+            <div class="flex items-center justify-between p-4 md:p-5 border-b border-gray-400 rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Registrar Requisito para: {{ tramite.nombre }}
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="modal-requisito-{{ tramite.id_tramite }}">
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Cerrar modal</span>
+                </button>
+            </div>
+
+            <form method="POST" action="{% url 'registrar_requisito' tramite.id_tramite %}">
+                {% csrf_token %}
+                <div class="p-4 md:p-5 space-y-4">
+
+                    <div>
+                        <label for="nombre_{{ tramite.id_tramite }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Nombre del requisito
+                        </label>
+                        <input type="text" name="nombre" id="nombre_{{ tramite.id_tramite }}" required maxlength="150"
+                            placeholder="Ej. Fotocopia de cédula"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+
+                    <div>
+                        <label for="descripcion_{{ tramite.id_tramite }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Descripción (opcional)
+                        </label>
+                        <textarea name="descripcion" id="descripcion_{{ tramite.id_tramite }}" rows="3"
+                            placeholder="Detalles del requisito..."
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" name="obligatorio" id="obligatorio_{{ tramite.id_tramite }}" checked
+                            class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+                        <label for="obligatorio_{{ tramite.id_tramite }}" class="text-sm text-gray-700 dark:text-gray-300">Requisito obligatorio</label>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" name="archivo_requerido" id="archivo_requerido_{{ tramite.id_tramite }}"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="archivo_requerido_{{ tramite.id_tramite }}" class="text-sm text-gray-700 dark:text-gray-300">Se requiere archivo</label>
+                    </div>
+
+                    <div>
+                        <label for="orden_{{ tramite.id_tramite }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Orden
+                        </label>
+                        <input type="number" name="orden" id="orden_{{ tramite.id_tramite }}" min="0" value="0"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-2 p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button type="submit"
+                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5">
+                        Guardar requisito
+                    </button>
+                    <button type="button" data-modal-hide="modal-requisito-{{ tramite.id_tramite }}"
+                        class="text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
