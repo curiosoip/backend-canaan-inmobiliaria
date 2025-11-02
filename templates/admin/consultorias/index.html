@@ -16,7 +16,7 @@
         </div>
         <input type="search" id="default-search" name="q"
             class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-            placeholder="Buscar trámites..." value="{{ query|default:'' }}" />
+            placeholder="Buscar consultorías..." value="{{ query|default:'' }}" />
     </div>
     <button type="submit"
         class="text-white bg-gray-700 cursor-pointer hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5">
@@ -24,7 +24,7 @@
     </button>
 
     {% if query %}
-    <a href="{% url 'tramites' %}"
+    <a href="{% url 'consultorias' %}"
         class="text-gray-500 bg-white border border-gray-300 rounded-lg text-sm p-2 hover:bg-gray-100">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
             <path fill="gray"
@@ -35,10 +35,10 @@
 </form>
 
 <ul class="flex flex-col w-full justify-center items-center py-1">
-    {% for tramite in pagina_actual %}
-        {% include 'admin/tramites/card_item_list.html' with tramite=tramite %}
+    {% for consultoria in pagina_actual %}
+        {% include 'admin/consultorias/card_item_list.html' with consultoria=consultoria %}
     {% empty %}
-        <li class="text-gray-500 font-semibold py-10">No hay trámites registrados.</li>
+        <li class="text-gray-500 font-semibold py-10">No hay consultorías registradas.</li>
     {% endfor %}
 </ul>
 

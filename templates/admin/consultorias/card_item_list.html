@@ -1,0 +1,39 @@
+{% load static %}
+<div class="flex w-full flex-col lg:flex-row p-2 bg-white my-2 rounded-lg ">
+    <div class="flex-shrink-0 flex justify-center items-center p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <!-- Icono de consultoría -->
+            <path fill="#dc7a7a" d="M27.4 5.5h-9.2l-2.1 4.2H4.3v16.8h25.2v-21Zm0 18.7H6.6V11.8h20.8Zm0-14.5h-8.2l1-2.1h7.1v2.1Z"/>
+        </svg>
+    </div>
+
+    <div class="flex flex-col lg:flex-row w-full justify-between items-start lg:items-center px-3 gap-4">
+        <div class="flex flex-col w-full gap-1">
+            <p class="text-sm font-bold text-gray-700 truncate uppercase">
+                {{ consultoria.nombre|truncatechars:100 }}
+            </p>
+
+            {% if consultoria.descripcion_general %}
+            <p class="text-xs text-gray-500">
+                <strong>Descripción:</strong> {{ consultoria.descripcion_general|truncatechars:150 }}
+            </p>
+            {% endif %}
+
+        </div>
+
+        <div class="flex w-full flex-col lg:flex-row gap-2 items-end lg:items-center">
+            <div class="flex flex-col gap-1 px-3 py-2 text-gray-500 w-full justify-center items-center" style="font-size: 10px;">
+                <strong class="m-0 p-0">Registro:</strong>
+                {{ consultoria.fecha_registro|date:"d/m/Y H:i" }}
+            </div>
+
+            {% if user.rol.nombre == 'Administrador' %}
+            <div class="flex gap-2 w-full justify-end">
+                {% include 'admin/consultorias/btn_detalle_registro.html' with consultoria=consultoria %}
+                {% include 'admin/consultorias/btn_formulario_editar.html' with consultoria=consultoria %}
+                {% include 'admin/consultorias/btn_eliminar_registro.html' with consultoria=consultoria %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -34,5 +34,8 @@
         {% if request.path == '/panel/tramites/' %}
             {% include 'admin/tramites/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/consultorias/' %}
+            {% include 'admin/consultorias/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>
