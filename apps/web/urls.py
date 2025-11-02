@@ -14,6 +14,7 @@ urlpatterns = [
     path('panel/tramites/', include('apps.tramites.urls')),
     path('panel/consultorias/', include('apps.consultorias.urls')),
     path('panel/importaciones/', include('apps.importaciones.urls')),
+    path('panel/redcors/', include('apps.redcors.urls')),
     path('panel/departamentos/', include('apps.departamentos.urls')),
     path('panel/procesos/', include('apps.procesos.urls')),
     path('panel/ventas/', include('apps.ventas.urls')),

@@ -40,5 +40,8 @@
         {% if request.path == '/panel/importaciones/' %}
             {% include 'admin/importaciones/btn_formulario_registro.html' %}
         {% endif %}
+        {% if request.path == '/panel/redcors/' %}
+            {% include 'admin/redcors/btn_formulario_registro.html' %}
+        {% endif %}
     {% endif %}
 </div>
