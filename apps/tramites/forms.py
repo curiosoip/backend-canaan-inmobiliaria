@@ -6,7 +6,7 @@ class TramiteForm(forms.ModelForm):
     class Meta:
         model = Tramite
         fields = [
-            'departamento',
+            'departamentos',
             'nombre',
             'descripcion',
             'costo',

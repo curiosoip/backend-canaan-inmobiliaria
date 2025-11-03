@@ -4,7 +4,7 @@ from apps.departamentos.models import Departamento
 
 class Tramite(models.Model):
     id_tramite = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    departamento = models.ForeignKey(Departamento, on_delete=models.SET_NULL,blank=True,null=True, related_name='tramites')
+    departamentos = models.ManyToManyField(Departamento,related_name='tramites',blank=True)
     nombre = models.CharField(max_length=150, unique=True)
     descripcion = models.TextField(blank=True, null=True)
     costo = models.CharField(max_length=200,blank=True,null=True)

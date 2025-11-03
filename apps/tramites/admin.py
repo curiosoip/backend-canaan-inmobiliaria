@@ -11,7 +11,7 @@ class RequisitoInline(admin.TabularInline):
 
 @admin.register(Tramite)
 class TramiteAdmin(admin.ModelAdmin):
-    list_display = ('nombre','departamento', 'costo', 'tiempo_estimado', 'activo', 'fecha_registro')
+    list_display = ('nombre', 'costo', 'tiempo_estimado', 'activo', 'fecha_registro')
     list_filter = ('activo',)
     search_fields = ('nombre', 'descripcion')
     ordering = ('nombre',)
@@ -20,7 +20,7 @@ class TramiteAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Información del Trámite', {
-            'fields': ('departamento','nombre', 'descripcion', 'costo', 'tiempo_estimado', 'activo')
+            'fields': ('departamentos','nombre', 'descripcion', 'costo', 'tiempo_estimado', 'activo')
         }),
         ('Tiempos del Registro', {
             'fields': ('fecha_registro', 'fecha_actualizacion'),
